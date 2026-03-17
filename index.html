@@ -141,7 +141,7 @@ html{scroll-behavior:smooth;}
 body{font-family:var(--fb);background:var(--parch);color:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 img{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
-.container{max-width:680px;margin:0 auto;padding:0 20px;}
+.container{max-width:960px;margin:0 auto;padding:0 20px;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
 
 /* ═══════════════════════════════════════════
@@ -158,7 +158,7 @@ a{color:inherit;text-decoration:none;}
    URGENCY BAR (sticky red top bar)
    ═══════════════════════════════════════════ */
 .urgency-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);padding:9px 20px;box-shadow:0 2px 8px rgba(0,0,0,.2);}
-.urgency-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+.urgency-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .urgency-text{font-size:12px;font-weight:600;color:rgba(255,255,255,.85);letter-spacing:.3px;}
 .urgency-countdown{display:flex;align-items:center;gap:3px;}
 .urgency-cd-num{font-family:var(--fd);font-size:15px;font-weight:900;color:#fff;min-width:22px;text-align:center;}
@@ -169,11 +169,11 @@ a{color:inherit;text-decoration:none;}
 .urgency-pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;}
 
 /* ═══════════════════════════════════════════
-   TOPBAR / NAV
+   TOPBAR / NAV (merged into urgency bar)
    ═══════════════════════════════════════════ */
-.topbar{background:var(--white);border-bottom:1px solid var(--rule);padding:12px 20px;position:sticky;top:40px;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.08);}
-.topbar-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-.tlogo{height:30px;width:auto;}
+.topbar{display:none;}
+.tlogo{height:26px;width:auto;flex-shrink:0;}
+.urgency-center{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;}
 .tbadge{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);}
 .tphone{font-size:13px;font-weight:600;color:var(--ink);}
 
@@ -183,7 +183,7 @@ a{color:inherit;text-decoration:none;}
 .hero{background:var(--ink);position:relative;overflow:hidden;}
 .hero img{width:100%;display:block;}
 .hero-ov{position:absolute;bottom:0;left:0;right:0;height:70%;background:linear-gradient(to top,rgba(15,14,13,.96),transparent);pointer-events:none;}
-.hero-ct{position:absolute;bottom:0;left:0;right:0;padding:28px 24px;}
+.hero-ct{position:absolute;bottom:0;left:0;right:0;padding:28px 24px;max-width:960px;margin:0 auto;}
 .badge{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 12px;border-radius:2px;margin-bottom:12px;}
 .hero-h1{font-family:var(--fd);font-size:clamp(34px,8vw,52px);font-weight:900;color:#fff;line-height:1.0;letter-spacing:-1px;margin-bottom:8px;}
 .hero-sub{font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;max-width:360px;margin-bottom:18px;}
@@ -198,7 +198,7 @@ a{color:inherit;text-decoration:none;}
    $0 STRIP
    ═══════════════════════════════════════════ */
 .zero-strip{background:var(--red);padding:16px 20px;}
-.zero-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:14px;}
+.zero-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:14px;}
 .zero-n{font-family:var(--fd);font-size:46px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px;flex-shrink:0;}
 .zero-c{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;}
 .zero-c strong{display:block;font-size:14px;font-weight:600;color:#fff;margin-bottom:2px;}
@@ -212,7 +212,7 @@ a{color:inherit;text-decoration:none;}
 .offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px;}
 .offer-card{background:var(--white);border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);cursor:pointer;transition:transform .2s,box-shadow .2s;}
 .offer-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
-.offer-img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#0D0D0D;}
+.offer-img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--warm);}
 .offer-body{padding:12px 12px 14px;}
 .oey{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
 .onm{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--ink);margin-bottom:7px;line-height:1.2;}
@@ -231,7 +231,7 @@ a{color:inherit;text-decoration:none;}
    DISCLAIMER CALLOUT
    ═══════════════════════════════════════════ */
 .disclaimer-box{background:var(--warm);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 0;}
-.disclaimer-inner{max-width:680px;margin:0 auto;padding:0 20px;display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:6px;padding:16px 18px;}
+.disclaimer-inner{max-width:960px;margin:0 auto;padding:0 20px;display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:6px;padding:16px 18px;}
 .disclaimer-icon{font-size:18px;flex-shrink:0;line-height:1;}
 .disclaimer-text{font-size:11px;color:var(--muted);line-height:1.65;}
 
@@ -395,7 +395,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
    GEO / CONQUEST SECTION
    ═══════════════════════════════════════════ */
 .geo-section{background:var(--warm);padding:44px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
-.geo-inner{max-width:680px;margin:0 auto;}
+.geo-inner{max-width:960px;margin:0 auto;}
 .geo-list{list-style:none;margin-top:16px;}
 .geo-list li{font-size:13px;color:var(--body);padding:6px 0;border-bottom:1px solid var(--rule);}
 .geo-list li:last-child{border-bottom:none;}
@@ -413,13 +413,33 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .flegal{font-size:9px;color:#C0BDB8;line-height:1.65;border-top:1px solid var(--rule);padding-top:12px;}
 
 /* ═══════════════════════════════════════════
+   GEO MAP
+   ═══════════════════════════════════════════ */
+.geo-map-wrap{margin:22px 0;border-radius:8px;overflow:hidden;border:1px solid var(--rule);}
+.geo-map-wrap iframe{display:block;width:100%;height:280px;border:0;}
+.geo-dir-btn{display:block;text-align:center;background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:12px;letter-spacing:.5px;text-decoration:none;transition:background .18s;}
+.geo-dir-btn:hover{background:var(--red-dk);}
+
+/* ═══════════════════════════════════════════
+   SOCIAL BAR (footer)
+   ═══════════════════════════════════════════ */
+.social-bar{margin:16px 0;padding-top:16px;border-top:1px solid var(--rule);}
+.social-title{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.social-icons{display:flex;justify-content:center;gap:18px;}
+.social-link{display:block;transition:transform .15s;}
+.social-link:hover{transform:scale(1.1);}
+.social-link img{display:block;border-radius:8px;}
+
+/* WFG logo in section */
+.wfg-logo{width:82px;margin:0 auto 12px;display:block;}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE — MOBILE
    ═══════════════════════════════════════════ */
 @media(max-width:560px){
   .urgency-inner{gap:6px;font-size:11px;}
   .urgency-phone{display:none;}
-  .topbar{top:36px;}
-  .tphone{display:none;}
+  .tlogo{display:none;}
   .hero-ct{padding:20px 16px;}
   .hero-countdown{gap:6px;}
   .cd-num{font-size:22px;padding:4px 2px;}
@@ -443,38 +463,30 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <body>
 
 <!-- ════════════════════════════════════════════
-     URGENCY BAR
+     SINGLE HEADER BAR
      ════════════════════════════════════════════ -->
 <div class="urgency-bar" role="banner">
   <div class="urgency-inner">
-    <span class="urgency-pulse" aria-hidden="true"></span>
-    <span class="urgency-text">Offer ends March 31 &mdash;</span>
-    <div class="urgency-countdown" id="urgency-cd" aria-label="Time remaining">
-      <span class="urgency-cd-num" id="u-days">--</span><span class="urgency-cd-label">d</span>
-      <span class="urgency-cd-num" id="u-hrs">--</span><span class="urgency-cd-label">h</span>
-      <span class="urgency-cd-num" id="u-min">--</span><span class="urgency-cd-label">m</span>
-      <span class="urgency-cd-num" id="u-sec">--</span><span class="urgency-cd-label">s</span>
+    <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868303/TAA062407W-GallatinLogos-Web-CDJR-2_yn1fwh.png" alt="Gallatin CDJR" class="tlogo" style="filter:brightness(0) invert(1);" />
+    <div class="urgency-center">
+      <span class="urgency-pulse" aria-hidden="true"></span>
+      <span class="urgency-text">Offer ends March 31 &mdash;</span>
+      <div class="urgency-countdown" id="urgency-cd" aria-label="Time remaining">
+        <span class="urgency-cd-num" id="u-days">--</span><span class="urgency-cd-label">d</span>
+        <span class="urgency-cd-num" id="u-hrs">--</span><span class="urgency-cd-label">h</span>
+        <span class="urgency-cd-num" id="u-min">--</span><span class="urgency-cd-label">m</span>
+        <span class="urgency-cd-num" id="u-sec">--</span><span class="urgency-cd-label">s</span>
+      </div>
     </div>
     <a href="tel:6292475176" class="urgency-phone">629-247-5176</a>
   </div>
 </div>
 
 <!-- ════════════════════════════════════════════
-     TOPBAR / NAV
-     ════════════════════════════════════════════ -->
-<nav class="topbar">
-  <div class="topbar-inner">
-    <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868303/TAA062407W-GallatinLogos-Web-CDJR-2_yn1fwh.png" alt="Gallatin CDJR" class="tlogo" />
-    <span class="tbadge">Sign &amp; Drive Event</span>
-    <a href="tel:6292475176" class="tphone">629-247-5176</a>
-  </div>
-</nav>
-
-<!-- ════════════════════════════════════════════
      HERO
      ════════════════════════════════════════════ -->
 <section class="hero">
-  <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773781255/header_sewvnl.png" alt="Jeep Sign and Drive Event — Gallatin CDJR" width="680" height="383" fetchpriority="high" />
+  <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773781255/header_sewvnl.png" alt="Jeep Sign and Drive Event — Gallatin CDJR" fetchpriority="high" />
   <div class="hero-ov"></div>
   <div class="hero-ct fu fu1">
     <span class="badge">Limited Time &mdash; Offer Ends March 31</span>
@@ -514,7 +526,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
       <!-- Grand Cherokee L Altitude -->
       <div class="offer-card" data-vehicle="2025 Jeep Grand Cherokee L Altitude" data-stock="C776320" data-price="$649/mo" data-terms="36 mo / 10K mi/yr">
-        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780490/Grand_Cherokee_L_Graphic_lyqrgw.png" alt="2025 Jeep Grand Cherokee L Altitude" class="offer-img" loading="lazy" />
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773790763/1_vlugyo.jpg" alt="2025 Jeep Grand Cherokee L Altitude" class="offer-img" loading="lazy" />
         <div class="offer-body">
           <p class="oey">2025 Jeep</p>
           <p class="onm">Grand Cherokee L <em style="font-size:10px;font-weight:400;">Altitude</em></p>
@@ -528,7 +540,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
       <!-- Gladiator -->
       <div class="offer-card" data-vehicle="2025 Jeep Gladiator" data-stock="C550764" data-price="$399/mo" data-terms="39 mo / 10K mi/yr">
-        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780583/Gladiator_Graphic_pp2hz9.png" alt="2025 Jeep Gladiator" class="offer-img" loading="lazy" />
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773790760/3_zfltx6.jpg" alt="2025 Jeep Gladiator" class="offer-img" loading="lazy" />
         <div class="offer-body">
           <p class="oey">2025 Jeep</p>
           <p class="onm">Gladiator</p>
@@ -542,7 +554,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
       <!-- Grand Cherokee Altitude X (2-Row) -->
       <div class="offer-card" data-vehicle="2025 Jeep Grand Cherokee Altitude X" data-stock="C316882" data-price="$634/mo" data-terms="36 mo / 10K mi/yr">
-        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780489/Grand_Cherokee_Graphic_pctjjo.png" alt="2025 Jeep Grand Cherokee Altitude X" class="offer-img" loading="lazy" />
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773790761/2_mqnx7g.jpg" alt="2025 Jeep Grand Cherokee Altitude X" class="offer-img" loading="lazy" />
         <div class="offer-body">
           <p class="oey">2025 Jeep</p>
           <p class="onm">Grand Cherokee <em style="font-size:10px;font-weight:400;">Altitude X (2-Row)</em></p>
@@ -577,6 +589,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <section class="wfg-section">
   <div class="container">
     <div style="text-align:center;">
+      <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868289/MSG-CDJR_cfgryx.png" alt="Worry-Free Guarantee" class="wfg-logo" loading="lazy" />
       <p class="kicker" style="text-align:center;">Included With Every Vehicle</p>
       <h2 class="sec-h2">Every vehicle. Zero worry.</h2>
     </div>
@@ -657,7 +670,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <!-- Grand Cherokee L Altitude -->
       <div class="vc-pick" data-vehicle="2025 Jeep Grand Cherokee L Altitude" data-stock="C776320" data-price="$649/mo" data-terms="36 mo / 10K mi/yr" onclick="selectVehicle(this)">
         <div class="vc-pick-inner">
-          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780490/Grand_Cherokee_L_Graphic_lyqrgw.png" alt="Grand Cherokee L" class="vc-img" />
+          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773790763/1_vlugyo.jpg" alt="Grand Cherokee L" class="vc-img" />
           <div class="vc-info">
             <p class="vc-ey">2025 Jeep</p>
             <p class="vc-nm">Grand Cherokee L <em style="font-size:11px;font-weight:400;">Altitude</em></p>
@@ -672,7 +685,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <!-- Gladiator -->
       <div class="vc-pick" data-vehicle="2025 Jeep Gladiator" data-stock="C550764" data-price="$399/mo" data-terms="39 mo / 10K mi/yr" onclick="selectVehicle(this)">
         <div class="vc-pick-inner">
-          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780583/Gladiator_Graphic_pp2hz9.png" alt="Gladiator" class="vc-img" />
+          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773790760/3_zfltx6.jpg" alt="Gladiator" class="vc-img" />
           <div class="vc-info">
             <p class="vc-ey">2025 Jeep</p>
             <p class="vc-nm">Gladiator</p>
@@ -687,7 +700,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <!-- Grand Cherokee Altitude X (2-Row) -->
       <div class="vc-pick" data-vehicle="2025 Jeep Grand Cherokee Altitude X" data-stock="C316882" data-price="$634/mo" data-terms="36 mo / 10K mi/yr" onclick="selectVehicle(this)">
         <div class="vc-pick-inner">
-          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780489/Grand_Cherokee_Graphic_pctjjo.png" alt="Grand Cherokee Altitude X" class="vc-img" />
+          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773790761/2_mqnx7g.jpg" alt="Grand Cherokee Altitude X" class="vc-img" />
           <div class="vc-info">
             <p class="vc-ey">2025 Jeep</p>
             <p class="vc-nm">Grand Cherokee <em style="font-size:11px;font-weight:400;">Altitude X (2-Row)</em></p>
@@ -891,6 +904,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <h2 class="sec-h2">Minutes from Nashville. Worth the drive.</h2>
       <p class="sec-sub">Gallatin CDJR is Middle Tennessee&rsquo;s top-rated Chrysler Dodge Jeep Ram dealer &mdash; serving Gallatin, Hendersonville, Lebanon, Mt. Juliet, and greater Nashville.</p>
     </div>
+    <div class="geo-map-wrap">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1600!2d-86.4486!3d36.3983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88646ee1c0d37c55%3A0x709b1af43d829f6d!2sGallatin%20Chrysler%20Dodge%20Jeep%20Ram!5e1!2m2!1sen!2sus!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Gallatin CDJR Map"></iframe>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Gallatin+Chrysler+Dodge+Jeep+Ram+1290+Nashville+Pike+Gallatin+TN+37066" target="_blank" rel="noopener" class="geo-dir-btn">&#128205; Get Directions to Gallatin CDJR &rarr;</a>
+    </div>
     <ul class="geo-list">
       <li>&#128205; 1290 Nashville Pike, Gallatin, TN 37066</li>
       <li>&#128339; Open Mon&ndash;Sat &bull; Service 7 days</li>
@@ -910,6 +927,23 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868303/TAA062407W-GallatinLogos-Web-CDJR-2_yn1fwh.png" alt="Gallatin CDJR" class="flogo" />
   <p class="faddr">Gallatin CDJR &mdash; A WeAuto Dealership<br/>1290 Nashville Pike, Gallatin, TN 37066<br/><a href="tel:6292475176">629-247-5176</a> &nbsp;|&nbsp; <a href="https://www.gallatincdjr.com" target="_blank" rel="noopener">gallatincdjr.com</a></p>
   <p class="foffer-exp">Offer ends March 31, 2026</p>
+  <div class="social-bar">
+    <p class="social-title">Follow Us on Socials</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/GallatinCDJR/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/f_png,w_44,h_44,c_fit/v1773781400/Facebook-logo_fqtg5z.png" alt="Facebook" width="36" height="36" />
+      </a>
+      <a href="https://www.instagram.com/gallatincdjr/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/f_png,w_44,h_44,c_fit/v1773781498/Instagram_logo_2022.svg_lrwvfr.webp" alt="Instagram" width="36" height="36" />
+      </a>
+      <a href="https://x.com/MiracleCDJR" target="_blank" rel="noopener" class="social-link" aria-label="X">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/f_png,w_44,h_44,c_fit/v1773781557/x_logo_aof5t1.avif" alt="X" width="36" height="36" />
+      </a>
+      <a href="https://www.tiktok.com/@gallatin.cdjr" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/f_png,w_44,h_44,c_fit/v1773781588/ticktok_logo_maganw.webp" alt="TikTok" width="36" height="36" />
+      </a>
+    </div>
+  </div>
   <p class="flegal">Lease offers based on advertised stocked units: 2025 Jeep Grand Cherokee L Altitude Stk #C776320 $649/mo 36-month lease; 2025 Jeep Gladiator Stk #C550764 $399/mo 39-month lease; 2025 Jeep Grand Cherokee Altitude X Stk #C316882 $634/mo 36-month lease. All leases 10,000 miles/year. Similar year/make/model vehicles may qualify for the same lease program &mdash; payments will vary based on actual vehicle MSRP. $0 due at signing excludes tax, title, license, and $995 dealer doc fee. Subject to credit approval through Stellantis Financial Services. Excess mileage charged at lease end. Cannot be combined with other offers. Residential restrictions may apply. Available on in-stock units only. Stellantis Loyalty/Conquest rebates may or may not apply. Offer expires 03/31/2026.</p>
 </footer>
 
