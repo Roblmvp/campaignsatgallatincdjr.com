@@ -411,6 +411,35 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .faddr a{color:var(--muted);}
 .foffer-exp{font-size:11px;font-weight:600;color:var(--red);margin-bottom:12px;}
 .flegal{font-size:9px;color:#C0BDB8;line-height:1.65;border-top:1px solid var(--rule);padding-top:12px;}
+.footer-links{margin:12px 0;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+.footer-links a{font-size:11px;font-weight:600;color:var(--red);text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+.footer-links a:hover{color:var(--red-dk);}
+
+/* ═══════════════════════════════════════════
+   PRIVACY / TERMS MODAL
+   ═══════════════════════════════════════════ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,14,13,.65);z-index:300;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;}
+.modal-card{background:var(--white);border-radius:12px;max-width:720px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;}
+.modal-head{position:sticky;top:0;background:var(--white);padding:20px 24px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;z-index:1;}
+.modal-head h2{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--ink);}
+.modal-close{background:none;border:none;font-size:24px;color:var(--muted);cursor:pointer;width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.modal-close:hover{background:var(--warm);}
+.modal-body{padding:24px;font-size:13px;color:var(--body);line-height:1.8;}
+.modal-body h3{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--ink);margin:20px 0 8px;}
+.modal-body h3:first-child{margin-top:0;}
+.modal-body p{margin-bottom:12px;}
+.modal-body ul{margin:8px 0 12px 20px;list-style:disc;}
+.modal-body ul li{margin-bottom:4px;}
+.modal-body .legal-date{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:16px;}
+
+/* ═══════════════════════════════════════════
+   FORM CONSENT CHECKBOX
+   ═══════════════════════════════════════════ */
+.consent-row{display:flex;align-items:flex-start;gap:10px;margin:16px 0;padding:12px 14px;background:var(--warm);border:1px solid var(--rule);border-radius:6px;}
+.consent-row input[type="checkbox"]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--red);cursor:pointer;}
+.consent-row label{font-size:11px;color:var(--body);line-height:1.6;text-transform:none;letter-spacing:0;font-weight:400;cursor:pointer;}
+.consent-row label a{color:var(--red);text-decoration:underline;font-weight:600;}
 
 /* ═══════════════════════════════════════════
    GEO MAP
@@ -827,6 +856,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         </div>
       </div>
 
+      <div class="consent-row">
+        <input type="checkbox" id="consent" name="Consent" value="Yes" required />
+        <label for="consent">I agree to the <a href="#" onclick="openModal('privacyModal');return false;">Privacy Notice</a> and <a href="#" onclick="openModal('termsModal');return false;">Terms &amp; Conditions</a>. I consent to Gallatin CDJR and WeAuto contacting me by phone, email, or text regarding my appointment and promotional offers. I understand I may opt out at any time.</label>
+      </div>
+      <p class="err-msg" id="consent-err" style="margin-top:-8px;margin-bottom:8px;">You must agree to the Privacy Notice and Terms to continue.</p>
+
       <button type="button" class="btn-next" onclick="submitAppointment()" id="btn-step3">
         Book My Test Drive Appointment &rarr;
       </button>
@@ -905,7 +940,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <p class="sec-sub">Gallatin CDJR is Middle Tennessee&rsquo;s top-rated Chrysler Dodge Jeep Ram dealer &mdash; serving Gallatin, Hendersonville, Lebanon, Mt. Juliet, and greater Nashville.</p>
     </div>
     <div class="geo-map-wrap">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1600!2d-86.4486!3d36.3983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88646ee1c0d37c55%3A0x709b1af43d829f6d!2sGallatin%20Chrysler%20Dodge%20Jeep%20Ram!5e1!2m2!1sen!2sus!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Gallatin CDJR Map"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3210!2d-86.44863!3d36.39831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88646ee1c0d37c55%3A0x709b1af43d829f6d!2sGallatin%20Chrysler%20Dodge%20Jeep%20Ram!5e0!2m2!1sen!2sus!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Gallatin CDJR Map"></iframe>
       <a href="https://www.google.com/maps/dir/?api=1&destination=Gallatin+Chrysler+Dodge+Jeep+Ram+1290+Nashville+Pike+Gallatin+TN+37066" target="_blank" rel="noopener" class="geo-dir-btn">&#128205; Get Directions to Gallatin CDJR &rarr;</a>
     </div>
     <ul class="geo-list">
@@ -913,8 +948,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <li>&#128339; Open Mon&ndash;Sat &bull; Service 7 days</li>
       <li>&#128222; <a href="tel:6292475176">629-247-5176</a></li>
     </ul>
-    <div style="text-align:center;">
-      <span class="conquest-badge">&#127942; We buy competitor trade-ins &mdash; ask about our $500 Conquest Bonus</span>
+    <div style="text-align:center;margin-top:20px;">
+      <a href="#book" style="display:inline-block;">
+        <img src="https://service.secureoffersites.com/images/GetLibraryImage?fileNameOrId=740011&Width=0&Height=0&type=webp&quality=95&useoverrides=true" alt="$2,500 Bonus Trade-In Cash" style="max-width:320px;width:100%;border-radius:8px;" loading="lazy" />
+      </a>
+      <p style="font-size:12px;font-weight:600;color:var(--green);margin-top:8px;">Get $2,500 Bonus Trade-In Cash on top of your vehicle&rsquo;s value.</p>
     </div>
   </div>
 </section>
@@ -944,8 +982,172 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </a>
     </div>
   </div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacyModal');return false;">Privacy Notice</a>
+    <a href="#" onclick="openModal('termsModal');return false;">Terms &amp; Conditions</a>
+  </div>
   <p class="flegal">Lease offers based on advertised stocked units: 2025 Jeep Grand Cherokee L Altitude Stk #C776320 $649/mo 36-month lease; 2025 Jeep Gladiator Stk #C550764 $399/mo 39-month lease; 2025 Jeep Grand Cherokee Altitude X Stk #C316882 $634/mo 36-month lease. All leases 10,000 miles/year. Similar year/make/model vehicles may qualify for the same lease program &mdash; payments will vary based on actual vehicle MSRP. $0 due at signing excludes tax, title, license, and $995 dealer doc fee. Subject to credit approval through Stellantis Financial Services. Excess mileage charged at lease end. Cannot be combined with other offers. Residential restrictions may apply. Available on in-stock units only. Stellantis Loyalty/Conquest rebates may or may not apply. Offer expires 03/31/2026.</p>
+  <p style="font-size:9px;color:#C0BDB8;margin-top:8px;">&copy; 2026 Gallatin CDJR &mdash; A WeAuto Dealership. All rights reserved.</p>
 </footer>
+
+
+<!-- ════════════════════════════════════════════
+     PRIVACY NOTICE MODAL
+     ════════════════════════════════════════════ -->
+<div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="privacy-title">Privacy Notice</h2>
+      <button class="modal-close" onclick="closeModal('privacyModal')" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="legal-date">Effective Date: March 1, 2026 &nbsp;|&nbsp; Last Updated: March 17, 2026</p>
+
+      <h3>1. Who We Are</h3>
+      <p>This Privacy Notice applies to the promotional campaign landing page operated jointly by <strong>Gallatin Chrysler Dodge Jeep Ram</strong> (&ldquo;Gallatin CDJR,&rdquo; &ldquo;the Dealership&rdquo;) and <strong>WeAuto, LLC</strong> (&ldquo;WeAuto,&rdquo; the Dealership&rsquo;s parent company), located at 1290 Nashville Pike, Gallatin, TN 37066. Gallatin CDJR and WeAuto are joint data controllers of the personal information collected through this page.</p>
+
+      <h3>2. Information We Collect</h3>
+      <p>When you submit the appointment booking form on this page, we collect the following personal information:</p>
+      <ul>
+        <li>First and last name</li>
+        <li>Phone number</li>
+        <li>Email address</li>
+        <li>Zip code</li>
+        <li>Preferred contact time</li>
+        <li>Vehicle of interest and selected appointment date/time</li>
+      </ul>
+      <p>We also automatically collect certain technical data through cookies and tracking technologies, including:</p>
+      <ul>
+        <li>IP address and approximate geolocation</li>
+        <li>Browser type, device type, and operating system</li>
+        <li>Pages viewed, time spent, and interaction data (clicks, scrolls, form field engagement)</li>
+        <li>Referring URL and campaign source</li>
+      </ul>
+
+      <h3>3. How We Use Your Information</h3>
+      <p>We use the information you provide to:</p>
+      <ul>
+        <li>Schedule and confirm your test drive appointment</li>
+        <li>Contact you by phone, email, or text message regarding your appointment</li>
+        <li>Enter your information into our Customer Relationship Management (CRM) system for dealership follow-up</li>
+        <li>Send you promotional offers, vehicle availability updates, and marketing communications related to Gallatin CDJR</li>
+        <li>Improve our advertising and website experience through analytics</li>
+        <li>Comply with legal obligations</li>
+      </ul>
+
+      <h3>4. Cookies &amp; Tracking Technologies</h3>
+      <p>This page uses Google Tag Manager (GTM), Google Analytics, Meta (Facebook) Pixel, and may include additional tracking pixels (such as TikTok or other advertising platforms) to measure campaign performance, deliver targeted advertising, and analyze user behavior. These technologies may place cookies on your device and collect data about your browsing activity across websites.</p>
+      <p>You may manage cookie preferences through your browser settings. Disabling cookies may affect certain page functionality.</p>
+
+      <h3>5. How We Share Your Information</h3>
+      <p>We may share your personal information with:</p>
+      <ul>
+        <li><strong>Stellantis Financial Services</strong> &mdash; if you proceed with a lease or financing application</li>
+        <li><strong>FormSubmit.co</strong> &mdash; our form processing service, which transmits your submission to our team via email</li>
+        <li><strong>CRM and marketing platforms</strong> &mdash; to manage customer communications and dealership operations</li>
+        <li><strong>Analytics and advertising partners</strong> &mdash; Google, Meta, and other platforms for performance measurement and retargeting</li>
+        <li><strong>Service providers</strong> &mdash; hosting (Vercel), content delivery (Cloudinary), and other technology vendors that support this page</li>
+        <li><strong>Legal authorities</strong> &mdash; when required by law, regulation, or legal process</li>
+      </ul>
+      <p>We do not sell your personal information to unaffiliated third parties for their independent marketing purposes.</p>
+
+      <h3>6. Data Retention</h3>
+      <p>We retain your personal information for as long as necessary to fulfill the purposes described in this notice, maintain our business relationship with you, and comply with legal obligations. Appointment data is typically retained for a minimum of three (3) years. You may request deletion at any time by contacting us.</p>
+
+      <h3>7. Your Rights</h3>
+      <p>Depending on your jurisdiction, you may have the right to:</p>
+      <ul>
+        <li>Access the personal information we hold about you</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your personal information</li>
+        <li>Opt out of marketing communications at any time</li>
+        <li>Opt out of the sale or sharing of personal information (where applicable under state law)</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="tel:6292475176" style="color:var(--red);">629-247-5176</a> or email <a href="mailto:campaignleads@drivegallatincdjr.com" style="color:var(--red);">campaignleads@drivegallatincdjr.com</a>.</p>
+
+      <h3>8. Text Message &amp; Phone Consent</h3>
+      <p>By submitting your phone number and checking the consent box, you expressly consent to receive autodialed calls, pre-recorded messages, and/or text messages from Gallatin CDJR and WeAuto at the phone number provided, including for marketing purposes. Consent is not a condition of purchase. Message and data rates may apply. Reply STOP to opt out of text messages at any time.</p>
+
+      <h3>9. Children&rsquo;s Privacy</h3>
+      <p>This page is not directed at individuals under the age of 18. We do not knowingly collect personal information from children.</p>
+
+      <h3>10. Changes to This Notice</h3>
+      <p>We may update this Privacy Notice from time to time. The &ldquo;Last Updated&rdquo; date at the top reflects the most recent revision. Continued use of this page after changes constitutes acceptance of the updated notice.</p>
+
+      <h3>11. Contact Us</h3>
+      <p><strong>Gallatin Chrysler Dodge Jeep Ram</strong> &mdash; A WeAuto Dealership<br/>
+      1290 Nashville Pike, Gallatin, TN 37066<br/>
+      Phone: <a href="tel:6292475176" style="color:var(--red);">629-247-5176</a><br/>
+      Email: <a href="mailto:campaignleads@drivegallatincdjr.com" style="color:var(--red);">campaignleads@drivegallatincdjr.com</a></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TERMS & CONDITIONS MODAL
+     ════════════════════════════════════════════ -->
+<div class="modal-overlay" id="termsModal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="terms-title">Terms &amp; Conditions</h2>
+      <button class="modal-close" onclick="closeModal('termsModal')" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="legal-date">Effective Date: March 1, 2026 &nbsp;|&nbsp; Last Updated: March 17, 2026</p>
+
+      <h3>1. Acceptance of Terms</h3>
+      <p>By accessing, browsing, or submitting information through this promotional landing page (the &ldquo;Page&rdquo;), you agree to be bound by these Terms &amp; Conditions. If you do not agree, do not use this Page or submit any personal information.</p>
+
+      <h3>2. Campaign Overview</h3>
+      <p>This Page promotes the Jeep Sign &amp; Drive campaign operated by Gallatin Chrysler Dodge Jeep Ram (&ldquo;Gallatin CDJR&rdquo;), a WeAuto dealership. The campaign features lease offers on select 2025 Jeep vehicles with $0 due at signing, subject to the terms described herein and in the lease offer disclosures displayed on this Page.</p>
+
+      <h3>3. Lease Offer Terms &amp; Disclaimers</h3>
+      <p>All advertised lease offers are subject to the following conditions:</p>
+      <ul>
+        <li>Offers apply to specifically advertised in-stock units: 2025 Jeep Grand Cherokee L Altitude (Stk #C776320, $649/mo, 36 months), 2025 Jeep Gladiator (Stk #C550764, $399/mo, 39 months), and 2025 Jeep Grand Cherokee Altitude X (Stk #C316882, $634/mo, 36 months).</li>
+        <li>Similar year/make/model vehicles may qualify for the same lease program. Payments will vary based on actual vehicle MSRP.</li>
+        <li>$0 due at signing excludes tax, title, license, and $995 dealer documentation fee.</li>
+        <li>All leases are based on 10,000 miles per year. Excess mileage will be charged at the rate specified in the lease agreement.</li>
+        <li>Subject to credit approval through Stellantis Financial Services.</li>
+        <li>Cannot be combined with other offers. Residential restrictions may apply.</li>
+        <li>Stellantis Loyalty/Conquest rebates may or may not apply depending on eligibility.</li>
+        <li>Offers expire March 31, 2026, or while supplies last.</li>
+        <li>Dealer reserves the right to modify or withdraw offers at any time without prior notice.</li>
+      </ul>
+
+      <h3>4. Appointment Booking</h3>
+      <p>The appointment booking feature on this Page allows you to request a test drive at Gallatin CDJR. Submitting a request does not guarantee vehicle availability. Gallatin CDJR will make commercially reasonable efforts to confirm your appointment within one (1) hour during business hours (Mon&ndash;Sat, 9:00 AM&ndash;8:00 PM CT). Walk-ins are also welcome.</p>
+
+      <h3>5. No Purchase Obligation</h3>
+      <p>Booking a test drive appointment does not obligate you to purchase or lease any vehicle. You are under no obligation to proceed with a transaction after your appointment.</p>
+
+      <h3>6. Accuracy of Information</h3>
+      <p>Gallatin CDJR and WeAuto make reasonable efforts to ensure the accuracy of pricing, vehicle details, and offer terms displayed on this Page. However, errors may occur. In the event of a discrepancy between information on this Page and the actual terms at the dealership, the dealership&rsquo;s terms shall prevail. Vehicle images are for illustration purposes and may not represent the exact vehicle, color, or trim available.</p>
+
+      <h3>7. Intellectual Property</h3>
+      <p>All content on this Page &mdash; including text, images, graphics, logos, and design &mdash; is the property of Gallatin CDJR, WeAuto, or their licensors, and is protected by applicable copyright and trademark laws. Jeep&reg;, Grand Cherokee&reg;, Gladiator&reg;, and Stellantis&reg; are registered trademarks of Stellantis N.V. or its subsidiaries. Use of these marks on this Page does not imply endorsement by Stellantis beyond the authorized dealer relationship.</p>
+
+      <h3>8. Limitation of Liability</h3>
+      <p>This Page is provided &ldquo;as is&rdquo; without warranties of any kind, express or implied. To the fullest extent permitted by law, Gallatin CDJR and WeAuto shall not be liable for any indirect, incidental, consequential, or punitive damages arising from your use of this Page, including but not limited to loss of data, missed appointments, or reliance on information displayed herein.</p>
+
+      <h3>9. Third-Party Services</h3>
+      <p>This Page uses third-party services including Vercel (hosting), Cloudinary (image delivery), FormSubmit.co (form processing), Google (maps, analytics), and Meta (advertising pixels). Your interactions with these services are governed by their respective terms and privacy policies. Gallatin CDJR and WeAuto are not responsible for the practices of third-party service providers.</p>
+
+      <h3>10. Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to conflict of laws principles. Any disputes arising from or relating to these Terms shall be resolved exclusively in the courts located in Sumner County, Tennessee.</p>
+
+      <h3>11. Severability</h3>
+      <p>If any provision of these Terms is found to be unenforceable or invalid, the remaining provisions shall continue in full force and effect.</p>
+
+      <h3>12. Contact</h3>
+      <p><strong>Gallatin Chrysler Dodge Jeep Ram</strong> &mdash; A WeAuto Dealership<br/>
+      1290 Nashville Pike, Gallatin, TN 37066<br/>
+      Phone: <a href="tel:6292475176" style="color:var(--red);">629-247-5176</a><br/>
+      Email: <a href="mailto:campaignleads@drivegallatincdjr.com" style="color:var(--red);">campaignleads@drivegallatincdjr.com</a></p>
+    </div>
+  </div>
+</div>
 
 
 <!-- ════════════════════════════════════════════
@@ -1341,6 +1543,17 @@ function submitAppointment() {
   chk('em', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
   chk('zp', function(v){ return v.length >= 5; });
 
+  // Consent checkbox validation
+  var consentEl = document.getElementById('consent');
+  var consentErr = document.getElementById('consent-err');
+  if (consentEl && !consentEl.checked) {
+    if (consentErr) consentErr.classList.add('show');
+    valid = false;
+    if (!first) first = consentEl;
+  } else if (consentErr) {
+    consentErr.classList.remove('show');
+  }
+
   if (!valid) { if (first) first.focus(); return; }
 
   var btn = document.getElementById('btn-step3');
@@ -1476,6 +1689,27 @@ window.retrySubmit = retrySubmit;
 
 
 // ═══════════════════════════════════════════
+// MODAL OPEN / CLOSE
+// ═══════════════════════════════════════════
+function openModal(id) {
+  var modal = document.getElementById(id);
+  if (modal) {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeModal(id) {
+  var modal = document.getElementById(id);
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+window.openModal = openModal;
+window.closeModal = closeModal;
+
+
+// ═══════════════════════════════════════════
 // LOCAL STORAGE
 // ═══════════════════════════════════════════
 function saveToStorage() {
@@ -1570,6 +1804,29 @@ document.addEventListener('DOMContentLoaded', function() {
   ['fn','ln','ph','em','zp'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('input', function() { clearErr(id); });
+  });
+
+  // Consent checkbox — clear error on change
+  var consentBox = document.getElementById('consent');
+  if (consentBox) {
+    consentBox.addEventListener('change', function() {
+      var err = document.getElementById('consent-err');
+      if (err) err.classList.remove('show');
+    });
+  }
+
+  // Close modals on overlay click or Escape key
+  document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeModal(overlay.id);
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(function(m) {
+        closeModal(m.id);
+      });
+    }
   });
 
   // dataLayer page view
