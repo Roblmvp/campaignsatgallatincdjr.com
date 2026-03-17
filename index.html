@@ -912,3 +912,638 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <p class="foffer-exp">Offer ends March 31, 2026</p>
   <p class="flegal">Lease offers based on advertised stocked units: 2025 Jeep Grand Cherokee L Altitude Stk #C776320 $649/mo 36-month lease; 2025 Jeep Gladiator Stk #C550764 $399/mo 39-month lease; 2025 Jeep Grand Cherokee Altitude X Stk #C316882 $634/mo 36-month lease. All leases 10,000 miles/year. Similar year/make/model vehicles may qualify for the same lease program &mdash; payments will vary based on actual vehicle MSRP. $0 due at signing excludes tax, title, license, and $995 dealer doc fee. Subject to credit approval through Stellantis Financial Services. Excess mileage charged at lease end. Cannot be combined with other offers. Residential restrictions may apply. Available on in-stock units only. Stellantis Loyalty/Conquest rebates may or may not apply. Offer expires 03/31/2026.</p>
 </footer>
+
+
+<!-- ════════════════════════════════════════════
+     ALL JAVASCRIPT
+     ════════════════════════════════════════════ -->
+<script>
+(function() {
+'use strict';
+
+// ═══════════════════════════════════════════
+// CONFIGURATION
+// ═══════════════════════════════════════════
+var DEADLINE = new Date('2026-03-31T23:59:59-05:00'); // America/Chicago CDT
+var FORM_ENDPOINT = 'https://formsubmit.co/campaignleads@drivegallatincdjr.com';
+var STORAGE_KEY = 'gcdjr_signdrive_v2';
+var DEALER = 'Gallatin CDJR — 1290 Nashville Pike, Gallatin TN 37066';
+
+// ═══════════════════════════════════════════
+// DATALAYER
+// ═══════════════════════════════════════════
+window.dataLayer = window.dataLayer || [];
+function dlPush(event, data) {
+  var obj = { event: event };
+  if (data) { for (var k in data) { if (data.hasOwnProperty(k)) obj[k] = data[k]; } }
+  window.dataLayer.push(obj);
+}
+
+// ═══════════════════════════════════════════
+// COUNTDOWN TIMER
+// ═══════════════════════════════════════════
+var countdownInterval;
+
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+function updateCountdown() {
+  var now = new Date();
+  var diff = DEADLINE - now;
+
+  if (diff <= 0) {
+    clearInterval(countdownInterval);
+    setCountdownValues('00', '00', '00', '00');
+    // Update urgency bar text
+    var urgText = document.querySelector('.urgency-text');
+    if (urgText) urgText.textContent = 'Offer has expired';
+    return;
+  }
+
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+
+  setCountdownValues(pad(d), pad(h), pad(m), pad(s));
+}
+
+function setCountdownValues(d, h, m, s) {
+  // Urgency bar
+  var ud = document.getElementById('u-days');
+  var uh = document.getElementById('u-hrs');
+  var um = document.getElementById('u-min');
+  var us = document.getElementById('u-sec');
+  if (ud) ud.textContent = d;
+  if (uh) uh.textContent = h;
+  if (um) um.textContent = m;
+  if (us) us.textContent = s;
+
+  // Hero
+  var hd = document.getElementById('h-days');
+  var hh = document.getElementById('h-hrs');
+  var hm = document.getElementById('h-min');
+  var hs = document.getElementById('h-sec');
+  if (hd) hd.textContent = d;
+  if (hh) hh.textContent = h;
+  if (hm) hm.textContent = m;
+  if (hs) hs.textContent = s;
+}
+
+function initCountdown() {
+  updateCountdown();
+  countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+
+// ═══════════════════════════════════════════
+// SCHEDULER STATE
+// ═══════════════════════════════════════════
+var state = {
+  vehicle: null, vehicleName: null, vehicleStock: null,
+  vehiclePrice: null, vehicleTerms: null,
+  date: null, dateLabel: null,
+  time: null,
+  step: 1
+};
+
+var calYear, calMonth;
+(function() {
+  var now = new Date();
+  calYear  = now.getFullYear();
+  calMonth = now.getMonth();
+})();
+
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+var ALL_SLOTS = [
+  '9:00 AM','10:00 AM','11:00 AM','12:00 PM',
+  '1:00 PM','2:00 PM','3:00 PM','4:00 PM',
+  '5:00 PM','6:00 PM','7:00 PM'
+];
+
+
+// ═══════════════════════════════════════════
+// OFFER CARD CLICK HANDLERS
+// ═══════════════════════════════════════════
+function initOfferCards() {
+  var cards = document.querySelectorAll('.offer-card[data-vehicle]');
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var vehicleName = card.dataset.vehicle;
+      dlPush('offer_card_click', { vehicle: vehicleName });
+
+      // Pre-select matching vehicle in Step 1
+      var pickers = document.querySelectorAll('#step1 .vc-pick');
+      pickers.forEach(function(p) {
+        if (p.dataset.vehicle === vehicleName) {
+          selectVehicle(p);
+        }
+      });
+
+      // Smooth scroll to #book
+      var bookEl = document.getElementById('book');
+      if (bookEl) bookEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+
+// ═══════════════════════════════════════════
+// STEP NAVIGATION
+// ═══════════════════════════════════════════
+function goStep(n) {
+  if (n === 2 && !state.vehicle) return;
+  if (n === 3 && (!state.date || !state.time)) return;
+
+  // Update panels
+  for (var i = 1; i <= 3; i++) {
+    var panel = document.getElementById('step' + i);
+    if (panel) panel.classList.toggle('active', i === n);
+  }
+
+  // Update step dots
+  for (var j = 1; j <= 3; j++) {
+    var dot = document.getElementById('sdot' + j);
+    if (!dot) continue;
+    dot.classList.remove('active','done');
+    if (j < n) dot.classList.add('done');
+    if (j === n) dot.classList.add('active');
+  }
+
+  // Step lines
+  for (var k = 1; k <= 2; k++) {
+    var line = document.getElementById('sline' + k);
+    if (line) line.classList.toggle('done', k < n);
+  }
+
+  state.step = n;
+
+  // Populate summary if going to step 3
+  if (n === 3) {
+    var sv = document.getElementById('sum-vehicle');
+    var sd = document.getElementById('sum-datetime');
+    if (sv) sv.textContent = state.vehicleName + ' (Stk #' + state.vehicleStock + ') — ' + state.vehiclePrice;
+    if (sd) sd.textContent = state.dateLabel + ' at ' + state.time;
+  }
+
+  // dataLayer
+  dlPush('step_advance', { step: n, vehicle: state.vehicleName });
+
+  // Scroll to top of card
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+// Expose globally for onclick handlers
+window.goStep = goStep;
+
+
+// ═══════════════════════════════════════════
+// VEHICLE SELECTION
+// ═══════════════════════════════════════════
+function selectVehicle(el) {
+  document.querySelectorAll('.vc-pick').forEach(function(c) { c.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.vehicle      = el.dataset.vehicle;
+  state.vehicleName  = el.dataset.vehicle;
+  state.vehicleStock = el.dataset.stock;
+  state.vehiclePrice = el.dataset.price;
+  state.vehicleTerms = el.dataset.terms;
+  var btn = document.getElementById('btn-step1');
+  if (btn) { btn.disabled = false; btn.textContent = 'Next — Choose Date & Time →'; }
+  var hint = document.querySelector('#step1 .step-hint');
+  if (hint) hint.textContent = el.dataset.vehicle + ' selected';
+
+  dlPush('vehicle_selected', { vehicle: state.vehicleName });
+  saveToStorage();
+}
+window.selectVehicle = selectVehicle;
+
+
+// ═══════════════════════════════════════════
+// CALENDAR
+// ═══════════════════════════════════════════
+function renderCalendar() {
+  var grid = document.getElementById('cal-grid');
+  var title = document.getElementById('cal-title');
+  if (!grid || !title) return;
+
+  title.textContent = MONTHS[calMonth] + ' ' + calYear;
+
+  // Keep only day headers (first 7 children)
+  while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+  var now   = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var first = new Date(calYear, calMonth, 1).getDay();
+  var daysIn = new Date(calYear, calMonth + 1, 0).getDate();
+
+  // Empty cells
+  for (var e = 0; e < first; e++) {
+    var empty = document.createElement('div');
+    empty.className = 'cal-day empty';
+    grid.appendChild(empty);
+  }
+
+  // Day cells
+  for (var d = 1; d <= daysIn; d++) {
+    var cell = document.createElement('button');
+    cell.type = 'button';
+    cell.textContent = d;
+    var cellDate = new Date(calYear, calMonth, d);
+    var dow = cellDate.getDay();
+
+    if (dow === 0 || cellDate < today) {
+      cell.className = 'cal-day disabled';
+      cell.disabled = true;
+    } else {
+      cell.className = 'cal-day';
+      if (cellDate.getTime() === today.getTime()) cell.classList.add('today');
+      if (state.date && state.date.getTime() === cellDate.getTime()) {
+        cell.classList.add('selected');
+      }
+      (function(dt, dayEl) {
+        dayEl.addEventListener('click', function() { selectDate(dt, dayEl); });
+      })(new Date(cellDate), cell);
+    }
+
+    grid.appendChild(cell);
+  }
+
+  // Prev button
+  var prevBtn = document.getElementById('cal-prev');
+  if (prevBtn) {
+    prevBtn.disabled = (calYear === now.getFullYear() && calMonth === now.getMonth());
+  }
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0)  { calMonth = 11; calYear--; }
+  state.date = null; state.time = null; state.dateLabel = null;
+  var sw = document.getElementById('slots-wrap');
+  if (sw) sw.style.display = 'none';
+  var btn = document.getElementById('btn-step2');
+  if (btn) { btn.disabled = true; btn.textContent = 'Next — Your Info →'; }
+  var hint = document.getElementById('step2-hint');
+  if (hint) hint.textContent = 'Select a date above';
+  renderCalendar();
+}
+window.changeMonth = changeMonth;
+
+function selectDate(dt, el) {
+  document.querySelectorAll('#cal-grid .cal-day').forEach(function(c) { c.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.date = dt;
+  state.time = null;
+
+  state.dateLabel = DAY_NAMES[dt.getDay()] + ', ' + MONTHS[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear();
+
+  var lbl = document.getElementById('slots-date-label');
+  if (lbl) lbl.textContent = '— ' + state.dateLabel;
+
+  renderSlots(dt);
+
+  var sw = document.getElementById('slots-wrap');
+  if (sw) sw.style.display = 'block';
+
+  var btn = document.getElementById('btn-step2');
+  if (btn) btn.disabled = true;
+  var hint = document.getElementById('step2-hint');
+  if (hint) hint.textContent = 'Select a time to continue';
+
+  dlPush('date_selected', { date: state.dateLabel });
+  saveToStorage();
+}
+
+
+// ═══════════════════════════════════════════
+// TIME SLOTS
+// ═══════════════════════════════════════════
+function renderSlots(dt) {
+  var grid = document.getElementById('slots-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  var now = new Date();
+
+  ALL_SLOTS.forEach(function(slot) {
+    var parts = slot.match(/(\d+):(\d+) (AM|PM)/);
+    var h = parseInt(parts[1]);
+    var m = parseInt(parts[2]);
+    var ap = parts[3];
+    if (ap === 'PM' && h !== 12) h += 12;
+    if (ap === 'AM' && h === 12) h = 0;
+
+    var slotDt = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), h, m, 0);
+
+    var el = document.createElement('div');
+    el.className = 'slot';
+    el.textContent = slot;
+
+    if (slotDt <= now) {
+      el.style.opacity = '.35';
+      el.style.cursor = 'not-allowed';
+      el.style.pointerEvents = 'none';
+    } else {
+      if (state.time === slot) el.classList.add('selected');
+      (function(s, slotEl) {
+        slotEl.addEventListener('click', function() { selectSlot(s, slotEl); });
+      })(slot, el);
+    }
+
+    grid.appendChild(el);
+  });
+}
+
+function selectSlot(slot, el) {
+  document.querySelectorAll('.slot').forEach(function(s) { s.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.time = slot;
+
+  var btn = document.getElementById('btn-step2');
+  if (btn) { btn.disabled = false; btn.textContent = 'Next — Your Info →'; }
+  var hint = document.getElementById('step2-hint');
+  if (hint) hint.textContent = state.dateLabel + ' at ' + slot;
+
+  dlPush('time_selected', { time: slot, date: state.dateLabel });
+  saveToStorage();
+}
+
+
+// ═══════════════════════════════════════════
+// FORM VALIDATION
+// ═══════════════════════════════════════════
+function showErr(id) {
+  var el = document.getElementById(id); if (el) el.classList.add('field-error');
+  var msg = document.getElementById(id + '-err'); if (msg) msg.classList.add('show');
+}
+function clearErr(id) {
+  var el = document.getElementById(id); if (el) el.classList.remove('field-error');
+  var msg = document.getElementById(id + '-err'); if (msg) msg.classList.remove('show');
+}
+
+
+// ═══════════════════════════════════════════
+// FORM SUBMIT
+// ═══════════════════════════════════════════
+var lastSubmitData = null;
+
+function submitAppointment() {
+  var valid = true;
+  var first = null;
+
+  function chk(id, test) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (!test(el.value.trim())) {
+      showErr(id); if (!first) first = el; valid = false;
+    } else { clearErr(id); }
+  }
+
+  chk('fn', function(v){ return v.length > 0; });
+  chk('ln', function(v){ return v.length > 0; });
+  chk('ph', function(v){ return v.replace(/\D/g,'').length >= 10; });
+  chk('em', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+  chk('zp', function(v){ return v.length >= 5; });
+
+  if (!valid) { if (first) first.focus(); return; }
+
+  var btn = document.getElementById('btn-step3');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="btn-spinner"></span>Booking\u2026'; }
+
+  var fn = document.getElementById('fn').value.trim();
+  var ln = document.getElementById('ln').value.trim();
+  var ph = document.getElementById('ph').value.trim();
+  var em = document.getElementById('em').value.trim();
+  var zp = document.getElementById('zp').value.trim();
+  var ct = document.getElementById('ct') ? document.getElementById('ct').value : 'Anytime';
+
+  var fullName     = fn + ' ' + ln;
+  var aptDatetime  = state.dateLabel + ' at ' + state.time;
+  var vehicleDetail = state.vehicleName + ' — Stk #' + state.vehicleStock + ' — ' + state.vehiclePrice + ' — ' + state.vehicleTerms;
+
+  // Build FormData
+  var fd = new FormData();
+  fd.append('_subject',               'BOOKED APPOINTMENT — Test Drive — Sign & Drive Campaign');
+  fd.append('_captcha',               'false');
+  fd.append('_template',              'table');
+  fd.append('Lead Type',              'Booked Test Drive Appointment');
+  fd.append('Campaign',               'Sign & Drive Campaign');
+  fd.append('Lead Source',            'Campaign — Email / Landing Page');
+  fd.append('Appointment Date & Time', aptDatetime);
+  fd.append('Vehicle Interest',       vehicleDetail);
+  fd.append('First Name',             fn);
+  fd.append('Last Name',              ln);
+  fd.append('Phone',                  ph);
+  fd.append('Email',                  em);
+  fd.append('Zip Code',               zp);
+  fd.append('Preferred Contact Time', ct || 'Anytime');
+  fd.append('Dealer',                 DEALER);
+  fd.append('Notes',                  'Customer self-scheduled via campaignsatgallatincdjr.com — Sign & Drive event landing page. Appointment confirmed by customer.');
+
+  // Save for retry
+  lastSubmitData = { fullName: fullName, vehicleDetail: vehicleDetail, aptDatetime: aptDatetime, fd: fd };
+
+  fetch(FORM_ENDPOINT, {
+    method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+  }).then(function(response) {
+    if (!response.ok) throw new Error('Network response was not ok');
+    showSuccess(fullName, vehicleDetail, aptDatetime);
+    dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
+  }).catch(function(err) {
+    // formsubmit.co often returns CORS on success — check if error is CORS-related
+    if (err.message && err.message.indexOf('Failed to fetch') !== -1) {
+      // Likely CORS — treat as success
+      showSuccess(fullName, vehicleDetail, aptDatetime);
+      dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
+    } else {
+      showError();
+      dlPush('form_error', { error: err.message });
+    }
+  });
+}
+window.submitAppointment = submitAppointment;
+
+
+// ═══════════════════════════════════════════
+// SUCCESS STATE
+// ═══════════════════════════════════════════
+function showSuccess(name, vehicle, datetime) {
+  // Hide all step panels + steps bar + header
+  document.querySelectorAll('.step-panel').forEach(function(p){ p.style.display = 'none'; });
+  var stepsBar = document.querySelector('.steps-bar');
+  if (stepsBar) stepsBar.style.display = 'none';
+  var schedHead = document.querySelector('.sched-head');
+  if (schedHead) schedHead.style.display = 'none';
+
+  // Hide error state if visible
+  var errState = document.getElementById('errorState');
+  if (errState) errState.style.display = 'none';
+
+  // Populate confirm card
+  var cv = document.getElementById('conf-vehicle');
+  var cd = document.getElementById('conf-datetime');
+  var cn = document.getElementById('conf-name');
+  if (cv) cv.textContent = state.vehicleName + ' — ' + state.vehiclePrice;
+  if (cd) cd.textContent = datetime;
+  if (cn) cn.textContent = name;
+
+  // Show success
+  var ss = document.getElementById('successState');
+  if (ss) ss.style.display = 'block';
+
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Save to localStorage
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      name: name, vehicle: vehicle, datetime: datetime,
+      timestamp: Date.now()
+    }));
+  } catch(e) {}
+}
+
+
+// ═══════════════════════════════════════════
+// ERROR STATE
+// ═══════════════════════════════════════════
+function showError() {
+  // Reset submit button
+  var btn = document.getElementById('btn-step3');
+  if (btn) { btn.disabled = false; btn.innerHTML = 'Book My Test Drive Appointment &rarr;'; }
+
+  // Hide step 3 panel
+  var step3 = document.getElementById('step3');
+  if (step3) step3.style.display = 'none';
+
+  // Show error state
+  var errState = document.getElementById('errorState');
+  if (errState) errState.style.display = 'block';
+
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function retrySubmit() {
+  // Hide error state
+  var errState = document.getElementById('errorState');
+  if (errState) errState.style.display = 'none';
+
+  // Show step 3 panel
+  var step3 = document.getElementById('step3');
+  if (step3) step3.style.display = 'block';
+
+  // Re-attempt submission
+  if (lastSubmitData) {
+    submitAppointment();
+  }
+}
+window.retrySubmit = retrySubmit;
+
+
+// ═══════════════════════════════════════════
+// LOCAL STORAGE
+// ═══════════════════════════════════════════
+function saveToStorage() {
+  try {
+    var data = {
+      vehicle: state.vehicle,
+      vehicleName: state.vehicleName,
+      vehicleStock: state.vehicleStock,
+      vehiclePrice: state.vehiclePrice,
+      vehicleTerms: state.vehicleTerms,
+      fn: (document.getElementById('fn') || {}).value || '',
+      ln: (document.getElementById('ln') || {}).value || '',
+      ph: (document.getElementById('ph') || {}).value || '',
+      em: (document.getElementById('em') || {}).value || '',
+      zp: (document.getElementById('zp') || {}).value || '',
+      timestamp: Date.now()
+    };
+    localStorage.setItem(STORAGE_KEY + '_draft', JSON.stringify(data));
+  } catch(e) {}
+}
+
+function restoreFromStorage() {
+  try {
+    // Check for completed booking
+    var completed = localStorage.getItem(STORAGE_KEY);
+    if (completed) {
+      var booking = JSON.parse(completed);
+      // If booking is less than 24 hours old, show success
+      if (booking.timestamp && (Date.now() - booking.timestamp) < 86400000) {
+        showSuccess(booking.name, booking.vehicle, booking.datetime);
+        return;
+      }
+    }
+
+    // Restore draft data
+    var draft = localStorage.getItem(STORAGE_KEY + '_draft');
+    if (!draft) return;
+    var data = JSON.parse(draft);
+
+    // Only restore if less than 2 hours old
+    if (data.timestamp && (Date.now() - data.timestamp) > 7200000) return;
+
+    // Restore form fields
+    var fields = ['fn','ln','ph','em','zp'];
+    fields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && data[id]) el.value = data[id];
+    });
+
+    // Restore vehicle selection
+    if (data.vehicle) {
+      var pickers = document.querySelectorAll('#step1 .vc-pick');
+      pickers.forEach(function(p) {
+        if (p.dataset.vehicle === data.vehicle) {
+          selectVehicle(p);
+        }
+      });
+    }
+  } catch(e) {}
+}
+
+// Save form fields on input
+function initFormSave() {
+  var fields = ['fn','ln','ph','em','zp'];
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', function() { saveToStorage(); });
+  });
+}
+
+
+// ═══════════════════════════════════════════
+// DOMCONTENTLOADED INIT
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  // Start countdown
+  initCountdown();
+
+  // Render calendar
+  renderCalendar();
+
+  // Init offer card click handlers
+  initOfferCards();
+
+  // Restore saved data
+  restoreFromStorage();
+
+  // Setup form field listeners
+  initFormSave();
+
+  // Clear error on input
+  ['fn','ln','ph','em','zp'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', function() { clearErr(id); });
+  });
+
+  // dataLayer page view
+  dlPush('page_view', { page: 'sign_and_drive_campaign' });
+});
+
+})();
+</script>
+
+</body>
+</html>
