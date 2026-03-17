@@ -439,3 +439,134 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   .disclaimer-inner{flex-direction:column;gap:6px;}
 }
 </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     URGENCY BAR
+     ════════════════════════════════════════════ -->
+<div class="urgency-bar" role="banner">
+  <div class="urgency-inner">
+    <span class="urgency-pulse" aria-hidden="true"></span>
+    <span class="urgency-text">Offer ends March 31 &mdash;</span>
+    <div class="urgency-countdown" id="urgency-cd" aria-label="Time remaining">
+      <span class="urgency-cd-num" id="u-days">--</span><span class="urgency-cd-label">d</span>
+      <span class="urgency-cd-num" id="u-hrs">--</span><span class="urgency-cd-label">h</span>
+      <span class="urgency-cd-num" id="u-min">--</span><span class="urgency-cd-label">m</span>
+      <span class="urgency-cd-num" id="u-sec">--</span><span class="urgency-cd-label">s</span>
+    </div>
+    <a href="tel:6292475176" class="urgency-phone">629-247-5176</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     TOPBAR / NAV
+     ════════════════════════════════════════════ -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868303/TAA062407W-GallatinLogos-Web-CDJR-2_yn1fwh.png" alt="Gallatin CDJR" class="tlogo" />
+    <span class="tbadge">Sign &amp; Drive Event</span>
+    <a href="tel:6292475176" class="tphone">629-247-5176</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════ -->
+<section class="hero">
+  <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773781255/header_sewvnl.png" alt="Jeep Sign and Drive Event — Gallatin CDJR" width="680" height="383" fetchpriority="high" />
+  <div class="hero-ov"></div>
+  <div class="hero-ct fu fu1">
+    <span class="badge">Limited Time &mdash; Offer Ends March 31</span>
+    <h1 class="hero-h1">Show Up.<br/>Sign.<br/>Drive.</h1>
+    <p class="hero-sub">Three Jeep models. $0 due at signing. Book your test drive appointment in 60 seconds.</p>
+    <div class="hero-countdown" id="hero-cd" aria-label="Countdown to offer expiration">
+      <div class="cd-group"><span class="cd-num" id="h-days">--</span><span class="cd-label">Days</span></div>
+      <div class="cd-group"><span class="cd-num" id="h-hrs">--</span><span class="cd-label">Hours</span></div>
+      <div class="cd-group"><span class="cd-num" id="h-min">--</span><span class="cd-label">Min</span></div>
+      <div class="cd-group"><span class="cd-num" id="h-sec">--</span><span class="cd-label">Sec</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- $0 STRIP -->
+<div class="zero-strip">
+  <div class="zero-inner">
+    <div class="zero-n">$0</div>
+    <div class="zero-c">
+      <strong>Due at Signing</strong>
+      No down payment &bull; No first month &bull; No acquisition fee out of pocket
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     OFFER CARDS
+     ════════════════════════════════════════════ -->
+<section class="offers-section">
+  <div class="container">
+    <div style="text-align:center;">
+      <p class="kicker" style="text-align:center;">3 Vehicles &mdash; All $0 at Signing</p>
+      <h2 class="sec-h2">This month&rsquo;s lease offers.</h2>
+      <p class="sec-sub">All in-stock. All available now. Click any vehicle to book your test drive.</p>
+    </div>
+    <div class="offers-grid fu fu3">
+
+      <!-- Grand Cherokee L Altitude -->
+      <div class="offer-card" data-vehicle="2025 Jeep Grand Cherokee L Altitude" data-stock="C776320" data-price="$649/mo" data-terms="36 mo / 10K mi/yr">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780490/Grand_Cherokee_L_Graphic_lyqrgw.png" alt="2025 Jeep Grand Cherokee L Altitude" class="offer-img" loading="lazy" />
+        <div class="offer-body">
+          <p class="oey">2025 Jeep</p>
+          <p class="onm">Grand Cherokee L <em style="font-size:10px;font-weight:400;">Altitude</em></p>
+          <p class="opr">$649<span>/mo</span></p>
+          <p class="otm">36 mo &bull; 10K mi/yr &bull; Stk #C776320</p>
+          <span class="otag">$0 at Signing</span>
+          <p class="offer-exp">Offer ends March 31</p>
+          <span class="offer-cta">Book Test Drive</span>
+        </div>
+      </div>
+
+      <!-- Gladiator -->
+      <div class="offer-card" data-vehicle="2025 Jeep Gladiator" data-stock="C550764" data-price="$399/mo" data-terms="39 mo / 10K mi/yr">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780583/Gladiator_Graphic_pp2hz9.png" alt="2025 Jeep Gladiator" class="offer-img" loading="lazy" />
+        <div class="offer-body">
+          <p class="oey">2025 Jeep</p>
+          <p class="onm">Gladiator</p>
+          <p class="opr">$399<span>/mo</span></p>
+          <p class="otm">39 mo &bull; 10K mi/yr &bull; Stk #C550764</p>
+          <span class="otag">$0 at Signing</span>
+          <p class="offer-exp">Offer ends March 31</p>
+          <span class="offer-cta">Book Test Drive</span>
+        </div>
+      </div>
+
+      <!-- Grand Cherokee Altitude X (2-Row) -->
+      <div class="offer-card" data-vehicle="2025 Jeep Grand Cherokee Altitude X" data-stock="C316882" data-price="$634/mo" data-terms="36 mo / 10K mi/yr">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780489/Grand_Cherokee_Graphic_pctjjo.png" alt="2025 Jeep Grand Cherokee Altitude X" class="offer-img" loading="lazy" />
+        <div class="offer-body">
+          <p class="oey">2025 Jeep</p>
+          <p class="onm">Grand Cherokee <em style="font-size:10px;font-weight:400;">Altitude X (2-Row)</em></p>
+          <p class="opr">$634<span>/mo</span></p>
+          <p class="otm">36 mo &bull; 10K mi/yr &bull; Stk #C316882</p>
+          <span class="otag">$0 at Signing</span>
+          <p class="offer-exp">Offer ends March 31</p>
+          <span class="offer-cta">Book Test Drive</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="scroll-cta">
+      <a href="#book" class="btn-red">Book Your Test Drive Now &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     DISCLAIMER CALLOUT
+     ════════════════════════════════════════════ -->
+<div class="disclaimer-box">
+  <div class="disclaimer-inner">
+    <span class="disclaimer-icon" aria-hidden="true">&#9432;</span>
+    <p class="disclaimer-text">All lease offers require $0 due at signing. Excludes tax, title, license, and $995 dealer doc fee. Subject to credit approval through Stellantis Financial Services. Excess mileage charged at lease end. Stellantis Loyalty/Conquest rebates may or may not apply. <strong>Offer expires 03/31/2026.</strong></p>
+  </div>
+</div>
