@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Book a test drive — Sign and Drive Event. $0 Due at Signing. Gallatin CDJR, Gallatin, Tennessee." />
+<meta name="robots" content="noindex" />
+<title>Book Your Test Drive — Sign &amp; Drive — Gallatin CDJR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --red:     #BF2D2D;
+  --red-dk:  #9E2222;
+  --red-lt:  #FFF0F0;
+  --ink:     #0F0E0D;
+  --body:    #3A3630;
+  --muted:   #7A7570;
+  --rule:    #E8E4DE;
+  --warm:    #F8F6F2;
+  --parch:   #F2EFE9;
+  --white:   #FFFFFF;
+  --gold:    #F4B942;
+  --green:   #1A7A3C;
+  --green-lt:#E8F5EE;
+  --fd: 'Playfair Display', Georgia, serif;
+  --fb: 'DM Sans', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--parch);color:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:680px;margin:0 auto;padding:0 20px;}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.fu{animation:fadeUp .55s cubic-bezier(.22,1,.36,1) both;}
+.fu1{animation-delay:.04s;} .fu2{animation-delay:.12s;} .fu3{animation-delay:.2s;}
+
+/* Topbar */
+.topbar{background:var(--white);border-bottom:1px solid var(--rule);padding:12px 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.topbar-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.tlogo{height:30px;width:auto;}
+.tbadge{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);}
+.tphone{font-size:13px;font-weight:600;color:var(--ink);}
+
+/* Hero */
+.hero{background:var(--ink);position:relative;overflow:hidden;}
+.hero img{width:100%;display:block;}
+.hero-ov{position:absolute;bottom:0;left:0;right:0;height:65%;background:linear-gradient(to top,rgba(15,14,13,.94),transparent);pointer-events:none;}
+.hero-ct{position:absolute;bottom:0;left:0;right:0;padding:28px 24px;}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 12px;border-radius:2px;margin-bottom:12px;}
+.hero-h1{font-family:var(--fd);font-size:clamp(34px,8vw,52px);font-weight:900;color:#fff;line-height:1.0;letter-spacing:-1px;margin-bottom:8px;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;max-width:360px;}
+
+/* $0 strip */
+.zero-strip{background:var(--red);padding:16px 20px;}
+.zero-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:14px;}
+.zero-n{font-family:var(--fd);font-size:46px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px;flex-shrink:0;}
+.zero-c{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;}
+.zero-c strong{display:block;font-size:14px;font-weight:600;color:#fff;margin-bottom:2px;}
+
+/* Scheduler card */
+.sched-section{background:var(--white);padding:44px 0;}
+.sched-card{background:var(--white);border:1px solid var(--rule);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.13),0 4px 12px rgba(0,0,0,.07);overflow:hidden;}
+.sched-head{background:var(--ink);padding:24px 28px;}
+.sched-head .kicker{color:#CC8080;margin-bottom:5px;}
+.sched-head h2{font-family:var(--fd);font-size:24px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:5px;}
+.sched-head p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+.kicker{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+
+/* Step indicator */
+.steps-bar{display:flex;align-items:center;padding:18px 28px;border-bottom:1px solid var(--rule);background:var(--warm);}
+.step-dot{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--muted);}
+.step-dot.active{color:var(--red);}
+.step-dot.done{color:var(--green);}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--rule);color:var(--muted);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.step-dot.active .step-num{background:var(--red);color:#fff;}
+.step-dot.done .step-num{background:var(--green);color:#fff;}
+.step-line{flex:1;height:1px;background:var(--rule);margin:0 10px;}
+.step-line.done{background:var(--green);}
+
+/* Step panels */
+.step-panel{display:none;padding:26px 28px;}
+.step-panel.active{display:block;}
+
+/* Vehicle cards */
+.vehicles-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.vc-pick{border:2px solid var(--rule);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .18s,box-shadow .18s;background:var(--white);}
+.vc-pick:hover{border-color:#BF2D2D;box-shadow:0 0 0 3px rgba(191,45,45,.1);}
+.vc-pick.selected{border-color:var(--red);box-shadow:0 0 0 3px rgba(191,45,45,.12);}
+.vc-pick-inner{display:flex;align-items:stretch;}
+.vc-img{width:130px;flex-shrink:0;object-fit:cover;background:#0D0D0D;}
+.vc-info{padding:14px 16px;flex:1;}
+.vc-ey{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.vc-nm{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:5px;line-height:1.2;}
+.vc-price{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--ink);line-height:1;}
+.vc-price span{font-size:12px;font-weight:400;color:var(--muted);}
+.vc-terms{font-size:10px;color:var(--muted);margin-top:3px;}
+.vc-tag{display:inline-block;background:var(--red-lt);border:1px solid #EEC8C8;color:var(--red);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;margin-top:6px;}
+.vc-radio{position:absolute;opacity:0;pointer-events:none;}
+.vc-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin:14px 14px 14px 0;transition:all .18s;color:transparent;}
+.vc-pick.selected .vc-check{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* Calendar */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cal-title{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--ink);}
+.cal-btn{background:none;border:1px solid var(--rule);border-radius:6px;width:36px;height:36px;cursor:pointer;font-size:16px;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.cal-btn:hover{background:var(--warm);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:20px;}
+.cal-day-header{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;padding:4px 0;}
+.cal-day{aspect-ratio:1;border-radius:6px;border:1px solid transparent;background:none;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink);transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.cal-day:hover:not(.disabled):not(.empty){background:var(--warm);border-color:var(--rule);}
+.cal-day.selected{background:var(--red);color:#fff;border-color:var(--red);font-weight:700;}
+.cal-day.today{font-weight:700;border-color:var(--red);color:var(--red);}
+.cal-day.today.selected{color:#fff;}
+.cal-day.disabled{color:var(--rule);cursor:not-allowed;}
+.cal-day.empty{cursor:default;}
+
+/* Time slots */
+.slots-label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.slots-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.slot{border:1.5px solid var(--rule);border-radius:6px;padding:10px 6px;text-align:center;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink);background:var(--warm);transition:all .15s;}
+.slot:hover{border-color:var(--red);background:var(--red-lt);}
+.slot.selected{background:var(--red);color:#fff;border-color:var(--red);font-weight:700;}
+.slot.am{font-size:11px;}
+
+/* Contact form */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.fg-full{grid-column:1/-1;}
+.fl{display:flex;flex-direction:column;gap:5px;}
+label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink);}
+label span{color:var(--red);}
+input,select{font-family:var(--fb);font-size:16px;color:var(--ink);background:var(--warm);border:1.5px solid var(--rule);border-radius:6px;padding:12px 13px;outline:none;transition:border-color .18s,box-shadow .18s;-webkit-appearance:none;appearance:none;width:100%;}
+input:focus,select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(191,45,45,.11);background:var(--white);}
+input::placeholder{color:#C0BDB8;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7570' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;cursor:pointer;}
+.err-msg{font-size:11px;color:var(--red);margin-top:3px;display:none;}
+.err-msg.show{display:block;}
+.field-error{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(191,45,45,.14) !important;}
+
+/* Appointment summary box */
+.apt-summary{background:var(--warm);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;margin-bottom:20px;}
+.apt-summary-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.apt-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.apt-row:last-child{margin-bottom:0;}
+.apt-icon{font-size:14px;width:20px;flex-shrink:0;margin-top:1px;}
+.apt-label{font-size:12px;color:var(--muted);}
+.apt-val{font-size:13px;font-weight:600;color:var(--ink);}
+
+/* Buttons */
+.btn-next{width:100%;background:var(--red);color:#fff;font-family:var(--fb);font-size:16px;font-weight:700;border:none;border-radius:6px;padding:16px 20px;cursor:pointer;min-height:54px;transition:background .18s,transform .12s;letter-spacing:.3px;-webkit-tap-highlight-color:transparent;}
+.btn-next:hover{background:var(--red-dk);}
+.btn-next:active{transform:scale(.987);}
+.btn-next:disabled{opacity:.6;cursor:not-allowed;}
+.btn-back{background:none;border:1.5px solid var(--rule);color:var(--muted);font-family:var(--fb);font-size:14px;font-weight:600;border-radius:6px;padding:11px 18px;cursor:pointer;transition:all .15s;margin-bottom:10px;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.step-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;}
+
+/* Success */
+.success-state{display:none;padding:44px 28px;text-align:center;}
+.success-icon{width:68px;height:68px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:32px;color:var(--green);}
+.success-h2{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.2;}
+.success-p{font-size:14px;color:var(--muted);line-height:1.7;max-width:340px;margin:0 auto 22px;}
+.confirm-card{background:var(--warm);border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:8px;padding:18px 20px;max-width:360px;margin:0 auto;text-align:left;}
+.confirm-card .apt-val{font-size:14px;}
+
+/* Offers strip */
+.offers-section{background:var(--warm);padding:44px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.sec-h2{font-family:var(--fd);font-size:clamp(22px,4vw,28px);font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:6px;}
+.sec-sub{font-size:14px;color:var(--muted);line-height:1.65;}
+.offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px;}
+.offer-card{background:var(--white);border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.offer-img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#0D0D0D;}
+.offer-body{padding:12px 12px 14px;}
+.oey{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.onm{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--ink);margin-bottom:7px;line-height:1.2;}
+.opr{font-family:var(--fd);font-size:24px;font-weight:900;color:var(--ink);line-height:1;margin-bottom:2px;}
+.opr span{font-size:11px;font-weight:400;color:var(--muted);}
+.otm{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:7px;}
+.otag{display:inline-block;background:var(--red-lt);border:1px solid #EEC8C8;color:var(--red);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;}
+.scroll-cta{text-align:center;margin-top:22px;}
+.btn-red{display:inline-block;background:var(--red);color:#fff;font-size:15px;font-weight:700;padding:14px 28px;border-radius:6px;transition:background .18s;}
+.btn-red:hover{background:var(--red-dk);}
+
+/* Reviews */
+.reviews-section{background:var(--white);padding:44px 0;}
+.review-card{background:var(--warm);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:6px;padding:18px;margin-bottom:11px;}
+.rstars{font-size:15px;color:var(--gold);letter-spacing:2px;margin-bottom:8px;}
+.rquote{font-family:var(--fd);font-size:13px;font-style:italic;color:var(--body);line-height:1.75;margin-bottom:12px;}
+.rauthor{display:flex;align-items:center;gap:9px;}
+.rav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.rnm{font-size:13px;font-weight:600;color:var(--ink);}
+.rmt{font-size:11px;color:var(--muted);margin-top:1px;}
+.btn-google{display:inline-block;background:#4285F4;color:#fff;font-size:13px;font-weight:600;padding:12px 26px;border-radius:6px;transition:background .18s;}
+.btn-google:hover{background:#2C6FD6;}
+
+/* WFG */
+.wfg-section{background:var(--warm);padding:44px 0;border-top:1px solid var(--rule);}
+.wfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px;}
+.wfg-item{background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:12px;}
+.wt{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink);margin-bottom:3px;}
+.wd{font-size:11px;color:var(--muted);line-height:1.5;}
+
+/* Footer */
+.footer{background:var(--parch);border-top:1px solid var(--rule);padding:28px 20px 36px;text-align:center;}
+.flogo{height:28px;margin:0 auto 12px;}
+.faddr{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:12px;}
+.faddr a{color:var(--muted);}
+.flegal{font-size:9px;color:#C0BDB8;line-height:1.65;border-top:1px solid var(--rule);padding-top:12px;}
+
+/* Mobile */
+@media(max-width:560px){
+  .tphone{display:none;}
+  .hero-ct{padding:20px 16px;}
+  .zero-strip{padding:14px 16px;}
+  .sched-section{padding:28px 0;}
+  .sched-head{padding:20px 18px;}
+  .step-panel{padding:20px 18px;}
+  .steps-bar{padding:14px 18px;}
+  .step-dot span{display:none;}
+  .vc-img{width:100px;}
+  .slots-grid{grid-template-columns:repeat(3,1fr);}
+  .fg{grid-template-columns:1fr;}
+  .offers-grid{grid-template-columns:1fr;}
+  .wfg-grid{grid-template-columns:1fr;}
+  .success-state{padding:36px 18px;}
+  .offers-section,.reviews-section,.wfg-section{padding:36px 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868303/TAA062407W-GallatinLogos-Web-CDJR-2_yn1fwh.png" alt="Gallatin CDJR" class="tlogo" />
+    <span class="tbadge">Sign &amp; Drive Event</span>
+    <a href="tel:6292475176" class="tphone">629-247-5176</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773781255/header_sewvnl.png" alt="Sign and Drive — Gallatin CDJR" />
+  <div class="hero-ov"></div>
+  <div class="hero-ct fu fu1">
+    <span class="badge">Limited Time &mdash; This Month Only</span>
+    <h1 class="hero-h1">Show Up.<br/>Sign.<br/>Drive.</h1>
+    <p class="hero-sub">Three Jeep models. $0 due at signing. Book your test drive appointment in 60 seconds.</p>
+  </div>
+</section>
+
+<!-- $0 STRIP -->
+<div class="zero-strip">
+  <div class="zero-inner">
+    <div class="zero-n">$0</div>
+    <div class="zero-c">
+      <strong>Due at Signing</strong>
+      No down payment &bull; No first month &bull; No acquisition fee out of pocket
+    </div>
+  </div>
+</div>
+
+
+<!-- SCHEDULER -->
+<section class="sched-section" id="book">
+<div class="container">
+<div class="sched-card fu fu2">
+
+  <!-- Header -->
+  <div class="sched-head">
+    <p class="kicker">Book Your Appointment</p>
+    <h2>Pick your vehicle, date &amp; time.</h2>
+    <p>Choose your Jeep, select a slot that works, fill in your info. We confirm within the hour.</p>
+  </div>
+
+  <!-- Step indicator -->
+  <div class="steps-bar">
+    <div class="step-dot active" id="sdot1">
+      <div class="step-num">1</div>
+      <span>Vehicle</span>
+    </div>
+    <div class="step-line" id="sline1"></div>
+    <div class="step-dot" id="sdot2">
+      <div class="step-num">2</div>
+      <span>Date &amp; Time</span>
+    </div>
+    <div class="step-line" id="sline2"></div>
+    <div class="step-dot" id="sdot3">
+      <div class="step-num">3</div>
+      <span>Your Info</span>
+    </div>
+    <div class="step-line" id="sline3"></div>
+    <div class="step-dot" id="sdot4">
+      <div class="step-num">4</div>
+      <span>Confirm</span>
+    </div>
+  </div>
+
+
+  <!-- STEP 1: VEHICLE -->
+  <div class="step-panel active" id="step1">
+    <p class="kicker" style="margin-bottom:14px;">Step 1 of 3 &mdash; Choose Your Vehicle</p>
+    <div class="vehicles-grid">
+
+      <!-- Gladiator -->
+      <div class="vc-pick" data-vehicle="2025 Jeep Gladiator" data-stock="C550764" data-price="$399/mo" data-terms="39 mo / 10K mi/yr" onclick="selectVehicle(this)">
+        <div class="vc-pick-inner">
+          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780583/Gladiator_Graphic_pp2hz9.png" alt="Gladiator" class="vc-img" />
+          <div class="vc-info">
+            <p class="vc-ey">2025 Jeep</p>
+            <p class="vc-nm">Gladiator</p>
+            <p class="vc-price">$399<span>/mo</span></p>
+            <p class="vc-terms">39 mo &bull; 10K mi/yr &bull; Stk #C550764</p>
+            <span class="vc-tag">$0 at Signing</span>
+          </div>
+          <div class="vc-check">&#10003;</div>
+        </div>
+      </div>
+
+      <!-- Grand Cherokee L -->
+      <div class="vc-pick" data-vehicle="2025 Jeep Grand Cherokee L Altitude" data-stock="C776320" data-price="$649/mo" data-terms="36 mo / 10K mi/yr" onclick="selectVehicle(this)">
+        <div class="vc-pick-inner">
+          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780490/Grand_Cherokee_L_Graphic_lyqrgw.png" alt="Grand Cherokee L" class="vc-img" />
+          <div class="vc-info">
+            <p class="vc-ey">2025 Jeep</p>
+            <p class="vc-nm">Grand Cherokee L <em style="font-size:11px;font-weight:400;">Altitude</em></p>
+            <p class="vc-price">$649<span>/mo</span></p>
+            <p class="vc-terms">36 mo &bull; 10K mi/yr &bull; Stk #C776320</p>
+            <span class="vc-tag">$0 at Signing</span>
+          </div>
+          <div class="vc-check">&#10003;</div>
+        </div>
+      </div>
+
+      <!-- Grand Cherokee AX -->
+      <div class="vc-pick" data-vehicle="2025 Jeep Grand Cherokee Altitude X" data-stock="C316882" data-price="$634/mo" data-terms="36 mo / 10K mi/yr" onclick="selectVehicle(this)">
+        <div class="vc-pick-inner">
+          <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780489/Grand_Cherokee_Graphic_pctjjo.png" alt="Grand Cherokee Altitude X" class="vc-img" />
+          <div class="vc-info">
+            <p class="vc-ey">2025 Jeep</p>
+            <p class="vc-nm">Grand Cherokee <em style="font-size:11px;font-weight:400;">Altitude X</em></p>
+            <p class="vc-price">$634<span>/mo</span></p>
+            <p class="vc-terms">36 mo &bull; 10K mi/yr &bull; Stk #C316882</p>
+            <span class="vc-tag">$0 at Signing</span>
+          </div>
+          <div class="vc-check">&#10003;</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:18px;">
+      <button class="btn-next" onclick="goStep(2)" id="btn-step1" disabled>
+        Next &mdash; Choose Date &amp; Time &rarr;
+      </button>
+      <p class="step-hint">Select a vehicle above to continue</p>
+    </div>
+  </div>
+
+
+  <!-- STEP 2: DATE & TIME -->
+  <div class="step-panel" id="step2">
+    <button class="btn-back" onclick="goStep(1)">&larr; Back</button>
+    <p class="kicker" style="margin-bottom:16px;">Step 2 of 3 &mdash; Pick a Date &amp; Time</p>
+
+    <!-- Calendar -->
+    <div class="cal-nav">
+      <button class="cal-btn" onclick="changeMonth(-1)" id="cal-prev">&#8249;</button>
+      <p class="cal-title" id="cal-title">March 2026</p>
+      <button class="cal-btn" onclick="changeMonth(1)">&#8250;</button>
+    </div>
+
+    <div class="cal-grid" id="cal-grid">
+      <!-- Day headers -->
+      <div class="cal-day-header">Su</div>
+      <div class="cal-day-header">Mo</div>
+      <div class="cal-day-header">Tu</div>
+      <div class="cal-day-header">We</div>
+      <div class="cal-day-header">Th</div>
+      <div class="cal-day-header">Fr</div>
+      <div class="cal-day-header">Sa</div>
+    </div>
+
+    <!-- Time slots — Mon-Sat 9am-8pm, 1hr blocks -->
+    <div id="slots-wrap" style="display:none;">
+      <p class="slots-label">Available Times <span id="slots-date-label" style="font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;"></span></p>
+      <div class="slots-grid" id="slots-grid"></div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <button class="btn-next" onclick="goStep(3)" id="btn-step2" disabled>
+        Next &mdash; Your Info &rarr;
+      </button>
+      <p class="step-hint" id="step2-hint">Select a date above</p>
+    </div>
+  </div>
+
+
+  <!-- STEP 3: CONTACT INFO -->
+  <div class="step-panel" id="step3">
+    <button class="btn-back" onclick="goStep(2)">&larr; Back</button>
+    <p class="kicker" style="margin-bottom:16px;">Step 3 of 3 &mdash; Your Information</p>
+
+    <!-- Appointment summary -->
+    <div class="apt-summary" id="apt-summary-3">
+      <p class="apt-summary-title">Your Appointment</p>
+      <div class="apt-row"><div class="apt-icon">&#128663;</div><div><p class="apt-label">Vehicle</p><p class="apt-val" id="sum-vehicle">—</p></div></div>
+      <div class="apt-row"><div class="apt-icon">&#128197;</div><div><p class="apt-label">Date &amp; Time</p><p class="apt-val" id="sum-datetime">—</p></div></div>
+      <div class="apt-row"><div class="apt-icon">&#128205;</div><div><p class="apt-label">Location</p><p class="apt-val">Gallatin CDJR &mdash; 1290 Nashville Pike, Gallatin TN</p></div></div>
+    </div>
+
+    <form id="leadForm" novalidate>
+      <div class="fg">
+        <div class="fl">
+          <label for="fn">First Name <span>*</span></label>
+          <input id="fn" name="First Name" type="text" placeholder="John" autocomplete="given-name" autocorrect="off" autocapitalize="words" required />
+          <p class="err-msg" id="fn-err">Required.</p>
+        </div>
+        <div class="fl">
+          <label for="ln">Last Name <span>*</span></label>
+          <input id="ln" name="Last Name" type="text" placeholder="Smith" autocomplete="family-name" autocorrect="off" autocapitalize="words" required />
+          <p class="err-msg" id="ln-err">Required.</p>
+        </div>
+        <div class="fl">
+          <label for="ph">Phone <span>*</span></label>
+          <input id="ph" name="Phone" type="tel" placeholder="(615) 555-0100" autocomplete="tel" inputmode="tel" required />
+          <p class="err-msg" id="ph-err">Enter a valid phone number.</p>
+        </div>
+        <div class="fl">
+          <label for="em">Email <span>*</span></label>
+          <input id="em" name="Email" type="email" placeholder="john@email.com" autocomplete="email" autocapitalize="off" autocorrect="off" required />
+          <p class="err-msg" id="em-err">Enter a valid email address.</p>
+        </div>
+        <div class="fl">
+          <label for="zp">Zip Code <span>*</span></label>
+          <input id="zp" name="Zip Code" type="text" placeholder="37066" autocomplete="postal-code" inputmode="numeric" maxlength="10" required />
+          <p class="err-msg" id="zp-err">Required.</p>
+        </div>
+        <div class="fl">
+          <label for="ct">Best Reach Time</label>
+          <select id="ct" name="Preferred Contact Time">
+            <option value="" disabled selected>Anytime</option>
+            <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
+            <option value="Afternoon (12pm–5pm)">Afternoon (12pm–5pm)</option>
+            <option value="Evening (5pm–7pm)">Evening (5pm–7pm)</option>
+            <option value="Anytime">Anytime works</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="button" class="btn-next" onclick="submitAppointment()" id="btn-step3">
+        Book My Test Drive Appointment &rarr;
+      </button>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;">Your info goes directly to our sales team. We confirm within the hour.</p>
+    </form>
+  </div>
+
+
+  <!-- SUCCESS STATE -->
+  <div class="success-state" id="successState">
+    <div class="success-icon">&#10003;</div>
+    <h2 class="success-h2">Appointment Booked.</h2>
+    <p class="success-p">Your test drive is confirmed. Our team will reach out within the hour to verify your slot and have the vehicle ready when you arrive.</p>
+    <div class="confirm-card" id="confirm-card">
+      <p class="apt-summary-title" style="margin-bottom:10px;">Appointment Details</p>
+      <div class="apt-row"><div class="apt-icon">&#128663;</div><div><p class="apt-label">Vehicle</p><p class="apt-val" id="conf-vehicle">—</p></div></div>
+      <div class="apt-row"><div class="apt-icon">&#128197;</div><div><p class="apt-label">Date &amp; Time</p><p class="apt-val" id="conf-datetime">—</p></div></div>
+      <div class="apt-row"><div class="apt-icon">&#128100;</div><div><p class="apt-label">Name</p><p class="apt-val" id="conf-name">—</p></div></div>
+      <div class="apt-row"><div class="apt-icon">&#128205;</div><div><p class="apt-label">Location</p><p class="apt-val">Gallatin CDJR<br/>1290 Nashville Pike, Gallatin TN 37066</p></div></div>
+    </div>
+  </div>
+
+</div><!-- /sched-card -->
+</div><!-- /container -->
+</section>
+
+
+<!-- OFFERS -->
+<section class="offers-section">
+  <div class="container">
+    <div style="text-align:center;">
+      <p class="kicker" style="text-align:center;">3 Vehicles &mdash; All $0 at Signing</p>
+      <h2 class="sec-h2">This month&rsquo;s lease offers.</h2>
+      <p class="sec-sub">All in-stock. All available now.</p>
+    </div>
+    <div class="offers-grid fu fu3">
+      <div class="offer-card">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780583/Gladiator_Graphic_pp2hz9.png" alt="Gladiator" class="offer-img" />
+        <div class="offer-body">
+          <p class="oey">2025 Jeep</p><p class="onm">Gladiator</p>
+          <p class="opr">$399<span>/mo</span></p>
+          <p class="otm">39 mo &bull; 10K mi/yr<br/>Stk #C550764</p>
+          <span class="otag">$0 at Signing</span>
+        </div>
+      </div>
+      <div class="offer-card">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780490/Grand_Cherokee_L_Graphic_lyqrgw.png" alt="Grand Cherokee L" class="offer-img" />
+        <div class="offer-body">
+          <p class="oey">2025 Jeep</p><p class="onm">Grand Cherokee L <em style="font-size:10px;font-weight:400;">Altitude</em></p>
+          <p class="opr">$649<span>/mo</span></p>
+          <p class="otm">36 mo &bull; 10K mi/yr<br/>Stk #C776320</p>
+          <span class="otag">$0 at Signing</span>
+        </div>
+      </div>
+      <div class="offer-card">
+        <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1773780489/Grand_Cherokee_Graphic_pctjjo.png" alt="Grand Cherokee AX" class="offer-img" />
+        <div class="offer-body">
+          <p class="oey">2025 Jeep</p><p class="onm">Grand Cherokee <em style="font-size:10px;font-weight:400;">Altitude X</em></p>
+          <p class="opr">$634<span>/mo</span></p>
+          <p class="otm">36 mo &bull; 10K mi/yr<br/>Stk #C316882</p>
+          <span class="otag">$0 at Signing</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cta">
+      <a href="#book" class="btn-red">Book Your Test Drive Now</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:24px;">
+      <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769643585/Google_Review_Graphic_Logo_smfpgq.png" alt="Google Reviews" style="width:140px;margin:0 auto 12px;" />
+      <p class="kicker" style="text-align:center;">What Our Customers Say</p>
+      <h2 class="sec-h2">Real people. Real five stars.</h2>
+    </div>
+    <div class="review-card">
+      <p class="rstars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+      <p class="rquote">&ldquo;This team is top notch. From purchasing our vehicle to receiving routine maintenance afterward. The buying experience with Cody was flawless and Diana and the rest of the service team are friendliest I&rsquo;ve encountered in this setting.&rdquo;</p>
+      <div class="rauthor"><div class="rav" style="background:#4285F4;">B</div><div><p class="rnm">Britt A.</p><p class="rmt">Google Review &mdash; 5 Stars</p></div></div>
+    </div>
+    <div class="review-card">
+      <p class="rstars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+      <p class="rquote">&ldquo;I have really been impressed with GCDJR since the moment I purchased my car there. Service with a smile. Brittany was excellent! She was prompt, friendly, and kept me informed the entire duration. Excellent customer service all around.&rdquo;</p>
+      <div class="rauthor"><div class="rav" style="background:#34A853;">J</div><div><p class="rnm">Jason Centracchio</p><p class="rmt">Google Review &mdash; 5 Stars</p></div></div>
+    </div>
+    <div class="review-card">
+      <p class="rstars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+      <p class="rquote">&ldquo;I had the best experience I&rsquo;ve ever had buying a car. Cheney went above and beyond. I didn&rsquo;t feel pressured in any way &mdash; completely the opposite. They care! Don&rsquo;t waste your time going anywhere else. A Customer for life.&rdquo;</p>
+      <div class="rauthor"><div class="rav" style="background:#EA4335;">V</div><div><p class="rnm">Vic O&rsquo;Rourke</p><p class="rmt">Google Review &mdash; 5 Stars</p></div></div>
+    </div>
+    <div style="text-align:center;margin-top:22px;">
+      <a href="https://g.page/r/CW2fgj30Gn1wEBM/review" target="_blank" class="btn-google">Read All Our Google Reviews</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- WFG -->
+<section class="wfg-section">
+  <div class="container">
+    <div style="text-align:center;">
+      <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868289/MSG-CDJR_cfgryx.png" alt="Worry-Free Guarantee" style="width:82px;margin:0 auto 12px;" />
+      <p class="kicker" style="text-align:center;">Included With Every Vehicle</p>
+      <h2 class="sec-h2">Every vehicle. Zero worry.</h2>
+      <p class="sec-sub">Complimentary with every purchase. No upsell. No conditions.</p>
+    </div>
+    <div class="wfg-grid">
+      <div class="wfg-item"><p class="wt">Lifetime Warranty</p><p class="wd">Nationwide. New and CPO. For life.</p></div>
+      <div class="wfg-item"><p class="wt">1-Year Maintenance</p><p class="wd">Every new and pre-owned vehicle.</p></div>
+      <div class="wfg-item"><p class="wt">7-Day Exchange</p><p class="wd">Changed your mind? Swap it.</p></div>
+      <div class="wfg-item"><p class="wt">Lifetime Loaners</p><p class="wd">A loaner every time you service.</p></div>
+      <div class="wfg-item"><p class="wt">$100 Referral</p><p class="wd">Send a friend. Receive $100.</p></div>
+      <div class="wfg-item"><p class="wt">$500 Loyalty Credit</p><p class="wd">Built-in credit toward your next.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="https://res.cloudinary.com/di5ujiwjp/image/upload/v1769868303/TAA062407W-GallatinLogos-Web-CDJR-2_yn1fwh.png" alt="Gallatin CDJR" class="flogo" />
+  <p class="faddr">Gallatin CDJR &mdash; A WeAuto Dealership<br/>1290 Nashville Pike, Gallatin, TN 37066<br/><a href="tel:6292475176">629-247-5176</a> &nbsp;|&nbsp; <a href="https://www.gallatincdjr.com" target="_blank">gallatincdjr.com</a></p>
+  <p class="flegal">Offers valid on new in-stock 2025 model year vehicles while supplies last. Lease offers subject to credit approval through Stellantis Financial Services. 2025 Jeep Gladiator: $399/mo, 39-month lease, 10,000 miles/year, Stock #C550764. 2025 Jeep Grand Cherokee L Altitude: $649/mo, 36-month lease, 10,000 miles/year, Stock #C776320. 2025 Jeep Grand Cherokee Altitude X: $634/mo, 36-month lease, 10,000 miles/year, Stock #C316882. $0 due at signing excludes tax, title, license, and dealer documentation fee. Stellantis Loyalty/Conquest rebates may or may not apply. Offers assume excellent credit and are subject to credit approval. Excess mileage charged at lease end. Offers expire end of current model month. Images may not represent actual inventory.</p>
+</footer>
+
+
+<script>
+// ════════════════════════════════════════════════════════════
+// SCHEDULER STATE
+// ════════════════════════════════════════════════════════════
+var state = {
+  vehicle: null, vehicleName: null, vehicleStock: null,
+  vehiclePrice: null, vehicleTerms: null,
+  date: null, dateLabel: null,
+  time: null,
+  step: 1
+};
+
+// Calendar state
+var calYear, calMonth;
+(function() {
+  var now = new Date();
+  calYear  = now.getFullYear();
+  calMonth = now.getMonth();
+})();
+
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+// Time slots Mon-Sat 9am-8pm (last slot starts 7pm ends 8pm)
+var ALL_SLOTS = [
+  '9:00 AM','10:00 AM','11:00 AM','12:00 PM',
+  '1:00 PM','2:00 PM','3:00 PM','4:00 PM',
+  '5:00 PM','6:00 PM','7:00 PM'
+];
+
+
+// ── STEP NAVIGATION ──────────────────────────────────────────
+function goStep(n) {
+  if (n === 2 && !state.vehicle) return;
+  if (n === 3 && (!state.date || !state.time)) return;
+
+  // Update panels
+  for (var i = 1; i <= 3; i++) {
+    var panel = document.getElementById('step' + i);
+    if (panel) panel.classList.toggle('active', i === n);
+  }
+
+  // Update step dots
+  for (var j = 1; j <= 4; j++) {
+    var dot = document.getElementById('sdot' + j);
+    if (!dot) continue;
+    dot.classList.remove('active','done');
+    if (j < n) dot.classList.add('done');
+    if (j === n) dot.classList.add('active');
+  }
+  // Step lines
+  for (var k = 1; k <= 3; k++) {
+    var line = document.getElementById('sline' + k);
+    if (line) line.classList.toggle('done', k < n);
+  }
+
+  state.step = n;
+
+  // Populate summary if going to step 3
+  if (n === 3) {
+    var sv = document.getElementById('sum-vehicle');
+    var sd = document.getElementById('sum-datetime');
+    if (sv) sv.textContent = state.vehicleName + ' (Stk #' + state.vehicleStock + ') — ' + state.vehiclePrice;
+    if (sd) sd.textContent = state.dateLabel + ' at ' + state.time;
+  }
+
+  // Scroll to top of card
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+// ── VEHICLE SELECTION ─────────────────────────────────────────
+function selectVehicle(el) {
+  document.querySelectorAll('.vc-pick').forEach(function(c) { c.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.vehicle    = el.dataset.vehicle;
+  state.vehicleName  = el.dataset.vehicle;
+  state.vehicleStock = el.dataset.stock;
+  state.vehiclePrice = el.dataset.price;
+  state.vehicleTerms = el.dataset.terms;
+  var btn = document.getElementById('btn-step1');
+  if (btn) { btn.disabled = false; btn.textContent = 'Next — Choose Date & Time →'; }
+  var hint = document.querySelector('#step1 .step-hint');
+  if (hint) hint.textContent = el.dataset.vehicle + ' selected';
+}
+
+
+// ── CALENDAR ──────────────────────────────────────────────────
+function renderCalendar() {
+  var grid = document.getElementById('cal-grid');
+  var title = document.getElementById('cal-title');
+  if (!grid || !title) return;
+
+  title.textContent = MONTHS[calMonth] + ' ' + calYear;
+
+  // Keep only day headers (first 7 children)
+  while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+  var now    = new Date();
+  var today  = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var first  = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+  var daysIn = new Date(calYear, calMonth + 1, 0).getDate();
+
+  // Empty cells before first
+  for (var e = 0; e < first; e++) {
+    var empty = document.createElement('div');
+    empty.className = 'cal-day empty';
+    grid.appendChild(empty);
+  }
+
+  // Day cells
+  for (var d = 1; d <= daysIn; d++) {
+    var cell = document.createElement('button');
+    cell.type = 'button';
+    cell.textContent = d;
+    var cellDate = new Date(calYear, calMonth, d);
+    var dow = cellDate.getDay(); // 0=Sun, 6=Sat
+
+    // Disabled: Sunday (0) or past dates
+    if (dow === 0 || cellDate < today) {
+      cell.className = 'cal-day disabled';
+      cell.disabled = true;
+    } else {
+      cell.className = 'cal-day';
+      if (cellDate.getTime() === today.getTime()) cell.classList.add('today');
+
+      // Check if this is the selected date
+      if (state.date && state.date.getTime() === cellDate.getTime()) {
+        cell.classList.add('selected');
+      }
+
+      (function(dt, dayEl) {
+        dayEl.addEventListener('click', function() { selectDate(dt, dayEl); });
+      })(new Date(cellDate), cell);
+    }
+
+    grid.appendChild(cell);
+  }
+
+  // Prev button — disable if we're in current month
+  var prevBtn = document.getElementById('cal-prev');
+  if (prevBtn) {
+    prevBtn.disabled = (calYear === now.getFullYear() && calMonth === now.getMonth());
+  }
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0)  { calMonth = 11; calYear--; }
+  state.date = null; state.time = null; state.dateLabel = null;
+  var sw = document.getElementById('slots-wrap');
+  if (sw) sw.style.display = 'none';
+  var btn = document.getElementById('btn-step2');
+  if (btn) { btn.disabled = true; btn.textContent = 'Next — Your Info →'; }
+  var hint = document.getElementById('step2-hint');
+  if (hint) hint.textContent = 'Select a date above';
+  renderCalendar();
+}
+
+function selectDate(dt, el) {
+  // Remove selected from all days
+  document.querySelectorAll('#cal-grid .cal-day').forEach(function(c) { c.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.date = dt;
+  state.time = null;
+
+  var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  state.dateLabel = dayNames[dt.getDay()] + ', ' + MONTHS[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear();
+
+  var lbl = document.getElementById('slots-date-label');
+  if (lbl) lbl.textContent = '— ' + state.dateLabel;
+
+  renderSlots(dt);
+
+  var sw = document.getElementById('slots-wrap');
+  if (sw) sw.style.display = 'block';
+
+  var btn = document.getElementById('btn-step2');
+  if (btn) btn.disabled = true;
+  var hint = document.getElementById('step2-hint');
+  if (hint) hint.textContent = 'Select a time to continue';
+}
+
+function renderSlots(dt) {
+  var grid = document.getElementById('slots-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  var now = new Date();
+
+  ALL_SLOTS.forEach(function(slot) {
+    // Parse slot time against selected date
+    var parts = slot.match(/(\d+):(\d+) (AM|PM)/);
+    var h = parseInt(parts[1]);
+    var m = parseInt(parts[2]);
+    var ap = parts[3];
+    if (ap === 'PM' && h !== 12) h += 12;
+    if (ap === 'AM' && h === 12) h = 0;
+
+    var slotDt = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), h, m, 0);
+
+    var el = document.createElement('div');
+    el.className = 'slot';
+    el.textContent = slot;
+
+    // Disable past slots
+    if (slotDt <= now) {
+      el.style.opacity = '.35';
+      el.style.cursor = 'not-allowed';
+      el.style.pointerEvents = 'none';
+    } else {
+      if (state.time === slot) el.classList.add('selected');
+      (function(s, slotEl) {
+        slotEl.addEventListener('click', function() { selectSlot(s, slotEl); });
+      })(slot, el);
+    }
+
+    grid.appendChild(el);
+  });
+}
+
+function selectSlot(slot, el) {
+  document.querySelectorAll('.slot').forEach(function(s) { s.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.time = slot;
+
+  var btn = document.getElementById('btn-step2');
+  if (btn) { btn.disabled = false; btn.textContent = 'Next — Your Info →'; }
+  var hint = document.getElementById('step2-hint');
+  if (hint) hint.textContent = state.dateLabel + ' at ' + slot;
+}
+
+
+// ── FORM VALIDATION + SUBMIT ──────────────────────────────────
+function showErr(id) {
+  var el = document.getElementById(id); if (el) el.classList.add('field-error');
+  var msg = document.getElementById(id+'-err'); if (msg) msg.classList.add('show');
+}
+function clearErr(id) {
+  var el = document.getElementById(id); if (el) el.classList.remove('field-error');
+  var msg = document.getElementById(id+'-err'); if (msg) msg.classList.remove('show');
+}
+
+['fn','ln','ph','em','zp'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', function() { clearErr(id); });
+});
+
+async function submitAppointment() {
+  var valid = true;
+  var first = null;
+
+  function chk(id, test) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (!test(el.value.trim())) {
+      showErr(id); if (!first) first = el; valid = false;
+    } else { clearErr(id); }
+  }
+
+  chk('fn', function(v){ return v.length > 0; });
+  chk('ln', function(v){ return v.length > 0; });
+  chk('ph', function(v){ return v.replace(/\D/g,'').length >= 10; });
+  chk('em', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+  chk('zp', function(v){ return v.length >= 5; });
+
+  if (!valid) { if (first) first.focus(); return; }
+
+  var btn = document.getElementById('btn-step3');
+  if (btn) { btn.disabled = true; btn.textContent = 'Booking...'; }
+
+  var fn = document.getElementById('fn').value.trim();
+  var ln = document.getElementById('ln').value.trim();
+  var ph = document.getElementById('ph').value.trim();
+  var em = document.getElementById('em').value.trim();
+  var zp = document.getElementById('zp').value.trim();
+  var ct = document.getElementById('ct') ? document.getElementById('ct').value : 'Anytime';
+
+  var fullName     = fn + ' ' + ln;
+  var aptDatetime  = state.dateLabel + ' at ' + state.time;
+  var vehicleDetail = state.vehicleName + ' — Stk #' + state.vehicleStock + ' — ' + state.vehiclePrice + ' — ' + state.vehicleTerms;
+
+  // Build FormData for formsubmit.co → campaignleads@drivegallatincdjr.com
+  var fd = new FormData();
+  fd.append('_subject',               'BOOKED APPOINTMENT — Test Drive — Sign & Drive Campaign');
+  fd.append('_captcha',               'false');
+  fd.append('_template',              'table');
+  fd.append('Lead Type',              'Booked Test Drive Appointment');
+  fd.append('Campaign',               'Sign & Drive Campaign');
+  fd.append('Lead Source',            'Campaign — Email / Landing Page');
+  fd.append('Appointment Date & Time', aptDatetime);
+  fd.append('Vehicle Interest',       vehicleDetail);
+  fd.append('First Name',             fn);
+  fd.append('Last Name',              ln);
+  fd.append('Phone',                  ph);
+  fd.append('Email',                  em);
+  fd.append('Zip Code',               zp);
+  fd.append('Preferred Contact Time', ct || 'Anytime');
+  fd.append('Dealer',                 'Gallatin CDJR — 1290 Nashville Pike, Gallatin TN 37066');
+  fd.append('Notes',                  'Customer self-scheduled via campaignsatgallatincdjr.com — Sign & Drive event landing page. Appointment confirmed by customer.');
+
+  try {
+    await fetch('https://formsubmit.co/campaignleads@drivegallatincdjr.com', {
+      method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+    });
+  } catch(e) { /* formsubmit often returns CORS on success — treat as success */ }
+
+  // Show success
+  showSuccess(fullName, vehicleDetail, aptDatetime);
+}
+
+function showSuccess(name, vehicle, datetime) {
+  // Hide all step panels + steps bar
+  document.querySelectorAll('.step-panel').forEach(function(p){ p.style.display='none'; });
+  document.querySelector('.steps-bar').style.display = 'none';
+  document.querySelector('.sched-head').style.display = 'none';
+
+  // Populate confirm card
+  document.getElementById('conf-vehicle').textContent  = state.vehicleName + ' — ' + state.vehiclePrice;
+  document.getElementById('conf-datetime').textContent = datetime;
+  document.getElementById('conf-name').textContent     = name;
+
+  // Show success
+  var ss = document.getElementById('successState');
+  ss.style.display = 'block';
+
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+// ── INIT ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  renderCalendar();
+});
+</script>
+
+</body>
+</html>
