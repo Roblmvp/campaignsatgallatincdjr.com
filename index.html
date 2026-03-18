@@ -488,6 +488,29 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   .disclaimer-inner{flex-direction:column;gap:6px;}
 }
 </style>
+<!-- Analytics & Retargeting | Meta 824871669271349 | GA4 G-PKR7RMGS1V -->
+<!-- Google tag (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PKR7RMGS1V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PKR7RMGS1V');
+</script>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '824871669271349');
+fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=824871669271349&ev=PageView&noscript=1"/>
+</noscript>
 </head>
 <body>
 
@@ -1268,6 +1291,21 @@ function initOfferCards() {
     card.addEventListener('click', function() {
       var vehicleName = card.dataset.vehicle;
       dlPush('offer_card_click', { vehicle: vehicleName });
+      fbq('track', 'ViewContent', {
+        content_name: card.dataset.vehicle || 'Jeep',
+        content_category: 'Jeep Lease',
+        content_ids: [card.dataset.stock || ''],
+        content_type: 'vehicle'
+      });
+      gtag('event', 'view_item', {
+        currency: 'USD',
+        items: [{
+          item_id: card.dataset.stock || '',
+          item_name: card.dataset.vehicle || 'Jeep',
+          item_category: 'Jeep',
+          item_category2: 'Lease'
+        }]
+      });
 
       // Pre-select matching vehicle in Step 1
       var pickers = document.querySelectorAll('#step1 .vc-pick');
@@ -1325,6 +1363,9 @@ function goStep(n) {
 
   // dataLayer
   dlPush('step_advance', { step: n, vehicle: state.vehicleName });
+  if (n === 2) {
+    gtag('event', 'begin_checkout', { currency: 'USD', value: 0 });
+  }
 
   // Scroll to top of card
   document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1598,12 +1639,26 @@ function submitAppointment() {
     if (!response.ok) throw new Error('Network response was not ok');
     showSuccess(fullName, vehicleDetail, aptDatetime);
     dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
+    fbq('track', 'Lead', {
+      content_name: 'Test Drive Appointment',
+      content_category: 'Sign & Drive Campaign'
+    });
+    fbq('track', 'Schedule');
+    gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
+    gtag('event', 'conversion');
   }).catch(function(err) {
     // formsubmit.co often returns CORS on success — check if error is CORS-related
     if (err.message && err.message.indexOf('Failed to fetch') !== -1) {
       // Likely CORS — treat as success
       showSuccess(fullName, vehicleDetail, aptDatetime);
       dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
+      fbq('track', 'Lead', {
+        content_name: 'Test Drive Appointment',
+        content_category: 'Sign & Drive Campaign'
+      });
+      fbq('track', 'Schedule');
+      gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
+      gtag('event', 'conversion');
     } else {
       showError();
       dlPush('form_error', { error: err.message });
