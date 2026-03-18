@@ -1211,7 +1211,7 @@ deadline.setMonth(2);   // March = index 2
 deadline.setDate(31);
 deadline.setHours(23, 59, 59, 0);
 var DEADLINE = deadline;
-var FORM_ENDPOINT = 'https://formsubmit.co/ajax/campaignleads@drivegallatincdjr.com';
+var FORM_ENDPOINT = '/api/lead';
 var STORAGE_KEY = 'gcdjr_signdrive_v2';
 var DEALER = 'Gallatin CDJR — 1290 Nashville Pike, Gallatin TN 37066';
 
@@ -1645,41 +1645,34 @@ function submitAppointment() {
   var aptDatetime  = state.dateLabel + ' at ' + state.time;
   var vehicleDetail = state.vehicleName + ' — Stk #' + state.vehicleStock + ' — ' + state.vehiclePrice + ' — ' + state.vehicleTerms;
 
-  // Build FormData
-  var fd = new FormData();
-  fd.append('_subject',               'BOOKED APPOINTMENT — Test Drive — Sign & Drive Campaign');
-  fd.append('_captcha',               'false');
-  fd.append('_template',              'table');
-  fd.append('Lead Type',              'Booked Test Drive Appointment');
-  fd.append('Campaign',               'Sign & Drive Campaign');
-  fd.append('Lead Source',            'Campaign — Email / Landing Page');
-  fd.append('Appointment Date & Time', aptDatetime);
-  fd.append('Vehicle Interest',       vehicleDetail);
-  fd.append('First Name',             fn);
-  fd.append('Last Name',              ln);
-  fd.append('Phone',                  ph);
-  fd.append('Email',                  em);
-  fd.append('Zip Code',               zp);
-  fd.append('Preferred Contact Time', ct || 'Anytime');
-  fd.append('Dealer',                 DEALER);
-  fd.append('Notes',                  'Customer self-scheduled via campaignsatgallatincdjr.com — Sign & Drive event landing page. Appointment confirmed by customer.');
+  // Build JSON payload for ADF/XML lead
+  var payload = JSON.stringify({
+    firstName: fn, lastName: ln, phone: ph, email: em, zip: zp,
+    contactTime: ct || 'Anytime',
+    vehicle: state.vehicleName, stock: state.vehicleStock,
+    price: state.vehiclePrice, terms: state.vehicleTerms,
+    appointmentDateTime: aptDatetime,
+    notes: 'Customer self-scheduled via campaignsatgallatincdjr.com — Sign & Drive event landing page. Appointment confirmed by customer.'
+  });
 
   // Save for retry
-  lastSubmitData = { fullName: fullName, vehicleDetail: vehicleDetail, aptDatetime: aptDatetime, fd: fd };
+  lastSubmitData = { fullName: fullName, vehicleDetail: vehicleDetail, aptDatetime: aptDatetime, payload: payload };
 
   fetch(FORM_ENDPOINT, {
-    method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+    method: 'POST', body: payload, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
   }).then(function(response) {
-    if (!response.ok) throw new Error('Network response was not ok');
-    showSuccess(fullName, vehicleDetail, aptDatetime);
-    dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
-    fbq('track', 'Lead', {
-      content_name: 'Test Drive Appointment',
-      content_category: 'Sign & Drive Campaign'
+    return response.json().then(function(data) {
+      if (!response.ok || !data.success) throw new Error(data.error || 'Submission failed');
+      showSuccess(fullName, vehicleDetail, aptDatetime);
+      dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
+      fbq('track', 'Lead', {
+        content_name: 'Test Drive Appointment',
+        content_category: 'Sign & Drive Campaign'
+      });
+      fbq('track', 'Schedule');
+      gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
+      gtag('event', 'conversion');
     });
-    fbq('track', 'Schedule');
-    gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
-    gtag('event', 'conversion');
   }).catch(function(err) {
     showError();
     dlPush('form_error', { error: err.message });
