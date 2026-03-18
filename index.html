@@ -1211,7 +1211,7 @@ deadline.setMonth(2);   // March = index 2
 deadline.setDate(31);
 deadline.setHours(23, 59, 59, 0);
 var DEADLINE = deadline;
-var FORM_ENDPOINT = 'https://formsubmit.co/campaignleads@drivegallatincdjr.com';
+var FORM_ENDPOINT = 'https://formsubmit.co/ajax/campaignleads@drivegallatincdjr.com';
 var STORAGE_KEY = 'gcdjr_signdrive_v2';
 var DEALER = 'Gallatin CDJR — 1290 Nashville Pike, Gallatin TN 37066';
 
@@ -1681,22 +1681,8 @@ function submitAppointment() {
     gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
     gtag('event', 'conversion');
   }).catch(function(err) {
-    // formsubmit.co often returns CORS on success — check if error is CORS-related
-    if (err.message && err.message.indexOf('Failed to fetch') !== -1) {
-      // Likely CORS — treat as success
-      showSuccess(fullName, vehicleDetail, aptDatetime);
-      dlPush('form_submit', { vehicle: state.vehicleName, date: state.dateLabel, time: state.time });
-      fbq('track', 'Lead', {
-        content_name: 'Test Drive Appointment',
-        content_category: 'Sign & Drive Campaign'
-      });
-      fbq('track', 'Schedule');
-      gtag('event', 'generate_lead', { currency: 'USD', value: 0 });
-      gtag('event', 'conversion');
-    } else {
-      showError();
-      dlPush('form_error', { error: err.message });
-    }
+    showError();
+    dlPush('form_error', { error: err.message });
   });
 }
 window.submitAppointment = submitAppointment;
