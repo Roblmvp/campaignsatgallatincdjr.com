@@ -940,7 +940,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <p class="sec-sub">Gallatin CDJR is Middle Tennessee&rsquo;s top-rated Chrysler Dodge Jeep Ram dealer &mdash; serving Gallatin, Hendersonville, Lebanon, Mt. Juliet, and greater Nashville.</p>
     </div>
     <div class="geo-map-wrap">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3210!2d-86.44863!3d36.39831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88646ee1c0d37c55%3A0x709b1af43d829f6d!2sGallatin%20Chrysler%20Dodge%20Jeep%20Ram!5e0!2m2!1sen!2sus!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Gallatin CDJR Map"></iframe>
+      <div style="margin:24px 0;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+        <iframe title="Gallatin CDJR"
+          src="https://maps.google.com/maps?q=Gallatin+Chrysler+Dodge+Jeep+Ram,+1290+Nashville+Pike,+Gallatin,+TN+37066&t=m&z=16&output=embed&iwloc=near"
+          width="100%" height="300" style="border:0;display:block;"
+          loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
       <a href="https://www.google.com/maps/dir/?api=1&destination=Gallatin+Chrysler+Dodge+Jeep+Ram+1290+Nashville+Pike+Gallatin+TN+37066" target="_blank" rel="noopener" class="geo-dir-btn">&#128205; Get Directions to Gallatin CDJR &rarr;</a>
     </div>
     <ul class="geo-list">
@@ -1160,7 +1165,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 // ═══════════════════════════════════════════
 // CONFIGURATION
 // ═══════════════════════════════════════════
-var DEADLINE = new Date('2026-03-31T23:59:59-05:00'); // America/Chicago CDT
+var deadline = new Date('2026-03-31T23:59:59');
+deadline.setFullYear(2026);
+deadline.setMonth(2);   // March = index 2
+deadline.setDate(31);
+deadline.setHours(23, 59, 59, 0);
+var DEADLINE = deadline;
 var FORM_ENDPOINT = 'https://formsubmit.co/campaignleads@drivegallatincdjr.com';
 var STORAGE_KEY = 'gcdjr_signdrive_v2';
 var DEALER = 'Gallatin CDJR — 1290 Nashville Pike, Gallatin TN 37066';
@@ -1204,7 +1214,7 @@ function updateCountdown() {
 }
 
 function setCountdownValues(d, h, m, s) {
-  // Urgency bar
+  // Urgency bar (by ID)
   var ud = document.getElementById('u-days');
   var uh = document.getElementById('u-hrs');
   var um = document.getElementById('u-min');
@@ -1214,7 +1224,7 @@ function setCountdownValues(d, h, m, s) {
   if (um) um.textContent = m;
   if (us) us.textContent = s;
 
-  // Hero
+  // Hero (by ID)
   var hd = document.getElementById('h-days');
   var hh = document.getElementById('h-hrs');
   var hm = document.getElementById('h-min');
@@ -1223,6 +1233,13 @@ function setCountdownValues(d, h, m, s) {
   if (hh) hh.textContent = h;
   if (hm) hm.textContent = m;
   if (hs) hs.textContent = s;
+
+  // Fallback: update ALL elements by class in case IDs are missing
+  var vals = [d, h, m, s];
+  var urgEls = document.querySelectorAll('.urgency-cd-num');
+  var heroEls = document.querySelectorAll('.cd-num');
+  urgEls.forEach(function(el, i) { if (i < vals.length) el.textContent = vals[i]; });
+  heroEls.forEach(function(el, i) { if (i < vals.length) el.textContent = vals[i]; });
 }
 
 function initCountdown() {
